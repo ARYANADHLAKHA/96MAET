@@ -9,4 +9,9 @@ public class Graph {
 }
 //hello there
 
+<<<<<<< HEAD
 //Hi I am aarushi and I am not lame, aryan isxgdglbvyib
+=======
+//Hi I am aarushi and I am lame
+
+>>>>>>> branch 'master' of https://github.com/ARYANADHLAKHA/96MAET.git
