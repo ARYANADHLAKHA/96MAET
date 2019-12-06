@@ -21,6 +21,12 @@ public class Graph implements GraphADT<Person> {
   }
 
   @Override
+  public boolean removeNode(Person person) {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+  @Override
   public Set<Person> getNeighbours(Person person) {
     // TODO Auto-generated method stub
     return null;
