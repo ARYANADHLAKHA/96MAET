@@ -20,5 +20,4 @@ public interface GraphADT<K> {
   
   public Set<K> getAllNodes();
 
-  //Aarushi will do this
 }
