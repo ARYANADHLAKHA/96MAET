@@ -1,9 +1,17 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 public class SocialNetwork implements SocialNetworkADT<Person, Graph> {
+  
+  private Graph newSocialNetwork;
 
+  public SocialNetwork() {
+  this.newSocialNetwork = new Graph();
+  }
+  
   @Override
   public boolean addFriends(String name1, String name2) {
     // TODO Auto-generated method stub
@@ -54,14 +62,22 @@ public class SocialNetwork implements SocialNetworkADT<Person, Graph> {
 
   @Override
   public void LoadFromFile(File toLoad) {
-    // TODO Auto-generated method stub
-    
+
+    try {
+      Scanner sc = new Scanner(toLoad);
+      while(sc.hasNextLine()) {
+        String newLine = sc.nextLine();
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
   }
 
   @Override
   public void savetoFile(File toSave) {
     // TODO Auto-generated method stub
-    
+
   }
 
 }
