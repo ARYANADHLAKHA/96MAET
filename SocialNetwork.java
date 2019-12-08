@@ -5,9 +5,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.Map;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+
+
 
 public class SocialNetwork implements SocialNetworkADT<Person, Graph> {
 
@@ -182,8 +190,47 @@ public class SocialNetwork implements SocialNetworkADT<Person, Graph> {
   @Override
   public List<Person> getShortestPath(String name1, String name2) {
     // TODO Auto-generated method stub
-    return null;
+
+    HashMap<Person, Boolean> vis = new HashMap();
+
+    Map<Person, Person> prev = new HashMap<Person, Person>();
+    
+    Person beg= lookupHelper(name1);
+   
+    Person dest=lookupHelper(name2);
+    
+        List<Person> directions = new LinkedList();
+        Queue<Person> q = new LinkedList();
+        Person current = beg;
+        q.add(current);
+        vis.put(current, true);
+        while(!q.isEmpty()){
+            current = q.remove();
+            if (current.equals(dest)){
+                break;
+            }else{
+                for(Person node : getFriends(current.getName())){
+                    if(!vis.containsKey(node)){
+                        q.add(node);
+                        vis.put(node, true);
+                        prev.put(node, current);
+                    }
+                }
+            }
+        }
+        if (!current.equals(dest)){
+            System.out.println("can't reach destination");
+        }
+        for(Person node = dest; node != null; node = prev.get(node)) {
+            directions.add(node);
+        }
+        Collections.reverse(directions);
+        
+        return directions;
+      
   }
+    
+    
 
   @Override
   public Set<Graph> getConnectedComponents() {
@@ -270,7 +317,7 @@ public class SocialNetwork implements SocialNetworkADT<Person, Graph> {
     }
 
   }
-  
+
   
   /**
    * 
@@ -289,7 +336,11 @@ public class SocialNetwork implements SocialNetworkADT<Person, Graph> {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    
+  }
+
+  private Person lookupHelper(String name) {
+    return graphObject.getNode(name);
+
   }
 
 }
