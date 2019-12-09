@@ -101,9 +101,9 @@ public class Main extends Application  {
 
     TextField textF2 = new TextField("type username here");
 
-    TextField textF3 = new TextField("type first username here");
+    TextField textF3 = new TextField("type username 1 here");
 
-    TextField textF4 = new TextField("type second username here");
+    TextField textF4 = new TextField("type username 1 here");
 
     TextField textF5 = new TextField("type username here");
 
@@ -114,6 +114,12 @@ public class Main extends Application  {
     TextField textAF = new TextField("enter username");
 
     TextField textAF1 = new TextField("enter friend name ");
+    
+    TextField textRFL = new TextField("enter username 1 here ");
+    
+    TextField textRFL1 = new TextField("enter username 2 here ");
+
+
     
     
 
@@ -152,6 +158,10 @@ public class Main extends Application  {
     Label exportFriendsList = new Label("Export friends list");
     
     Label addFriendsLabel = new Label ("Add friends");
+    
+    Label removeFriendshipLabel = new Label ("Remove friendship");
+    
+    Label displayBox = new Label ("");
 
     addUserName.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
     removeUser.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
@@ -160,6 +170,7 @@ public class Main extends Application  {
     displayConnections.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
     exportFriendsList.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
     addFriendsLabel.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
+    removeFriendshipLabel.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
 
 
     Button add = new Button("add");
@@ -180,6 +191,7 @@ public class Main extends Application  {
 
     Button removeAll = new Button("REMOVE ALL USERS");
     
+    Button removeFriendship = new Button ("Remove Friendship");
     
     
 
@@ -193,18 +205,91 @@ public class Main extends Application  {
     displayNetwork.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
     removeAll.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
     goBackToScene2.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
+    removeFriendship.setStyle("-fx-text-fill: black; -fx-font: 19 arial;");
     
     Stage secondaryStage=new Stage();
     
+    Stage tertiaryStage= new Stage();
+        
     add.setOnAction(e -> {
-      
       friend1.setText(textF1.getText());   
       friendNetwork.addUser(textF1.getText());
+      //pop-up window for the user
+      BorderPane borderPane4add = new BorderPane();
+      HBox firstRow = new HBox(new Label("Added "+textF1.getText()+" to the Social Network"));
+      
+      VBox VerticalBox = new VBox(firstRow);
+         
+         VerticalBox.setSpacing(20.0);
+
+         VerticalBox.setAlignment(Pos.CENTER);
+
+
+         firstRow.setSpacing(5.0);
+
+         firstRow.setAlignment(Pos.CENTER);
+         
+      borderPane4add.setCenter(VerticalBox);
+      Scene sceneAdd = new Scene(borderPane4add,300,150);
+      tertiaryStage.setScene(sceneAdd);
+      tertiaryStage.show();
+      
+    });
+
+    export.setOnAction(e -> {
+      
+      friend1.setText(textF7.getText());   
+      File f1= new File(textF7.getText()+".txt");
+      friendNetwork.savetoFile(f1);
+    //pop-up window for the user
+      BorderPane borderPane4add = new BorderPane();
+      HBox firstRow = new HBox(new Label("Exported data to "+textF7.getText()+" text file"));
+      
+      VBox VerticalBox = new VBox(firstRow);
+         
+         VerticalBox.setSpacing(20.0);
+
+         VerticalBox.setAlignment(Pos.CENTER);
+
+
+         firstRow.setSpacing(5.0);
+
+         firstRow.setAlignment(Pos.CENTER);
+         
+      borderPane4add.setCenter(VerticalBox);
+      Scene sceneAdd = new Scene(borderPane4add,300,150);
+      tertiaryStage.setScene(sceneAdd);
+      tertiaryStage.show();
     });
     
     remove.setOnAction(e -> {
 	friend1.setText(textF2.getText()); 
 	friendNetwork.removeUser(textF2.getText());
+	//pop-up window for the user
+    BorderPane borderPane4add = new BorderPane();
+    HBox firstRow = new HBox(new Label("Removed "+textF2.getText()+" from the Social Network"));
+    HBox secondRow = new HBox(new Label("Hope to see you again"));
+    
+    
+    VBox VerticalBox = new VBox(firstRow, secondRow);
+       
+       VerticalBox.setSpacing(20.0);
+
+       VerticalBox.setAlignment(Pos.CENTER);
+
+
+       firstRow.setSpacing(5.0);
+
+       firstRow.setAlignment(Pos.CENTER);
+       
+       secondRow.setSpacing(5.0);
+
+       secondRow.setAlignment(Pos.CENTER);
+       
+    borderPane4add.setCenter(VerticalBox);
+    Scene sceneAdd = new Scene(borderPane4add,300,150);
+    tertiaryStage.setScene(sceneAdd);
+    tertiaryStage.show();
 	//primaryStage.setScene(finalScene);
     });
     
@@ -250,7 +335,26 @@ public class Main extends Application  {
        secondaryStage.setScene(sceneSearch);
        
        secondaryStage.show();
-    
+       
+     //pop-up window for the user
+       BorderPane borderPane4add = new BorderPane();
+       HBox row1 = new HBox(new Label("Looked for mutual friends of "+textF3.getText()+" and "+textF4.getText()));
+       
+       VBox vertBox = new VBox(row1);
+          
+          vertBox.setSpacing(20.0);
+
+          vertBox.setAlignment(Pos.CENTER);
+
+
+          row1.setSpacing(5.0);
+
+          row1.setAlignment(Pos.CENTER);
+          
+       borderPane4add.setCenter(vertBox);
+       Scene sceneAdd = new Scene(borderPane4add,300,150);
+       tertiaryStage.setScene(sceneAdd);
+       tertiaryStage.show();
     
     });
   
@@ -306,8 +410,52 @@ public class Main extends Application  {
       	friend1.setText(textAF.getText()); 
 	friend2.setText(textAF1.getText()); 
 	friendNetwork.addFriends(textAF.getText(), textAF1.getText());
+	//pop-up window for the user
+    BorderPane borderPane4add = new BorderPane();
+    HBox firstRow = new HBox(new Label("Added "+textAF.getText()+" and "+textAF1.getText()+" as friends."));
+    
+    VBox VerticalBox = new VBox(firstRow);
+       
+       VerticalBox.setSpacing(20.0);
+
+       VerticalBox.setAlignment(Pos.CENTER);
+
+
+       firstRow.setSpacing(5.0);
+
+       firstRow.setAlignment(Pos.CENTER);
+       
+    borderPane4add.setCenter(VerticalBox);
+    Scene sceneAdd = new Scene(borderPane4add,300,150);
+    tertiaryStage.setScene(sceneAdd);
+    tertiaryStage.show();
  });
   
+  removeAll.setOnAction(e -> {
+    Set<Person> usersSet=friendNetwork.getGraph().getAllNodes();
+    for (Person per: usersSet) {
+      friendNetwork.removeUser(per.getName());
+    }
+  //pop-up window for the user
+    BorderPane borderPane4add = new BorderPane();
+    HBox firstRow = new HBox(new Label("Removed all users from the Social Network"));
+    
+    VBox VerticalBox = new VBox(firstRow);
+       
+       VerticalBox.setSpacing(20.0);
+
+       VerticalBox.setAlignment(Pos.CENTER);
+
+
+       firstRow.setSpacing(5.0);
+
+       firstRow.setAlignment(Pos.CENTER);
+       
+    borderPane4add.setCenter(VerticalBox);
+    Scene sceneAdd = new Scene(borderPane4add,300,150);
+    tertiaryStage.setScene(sceneAdd);
+    tertiaryStage.show();
+  });
   
   //ACTION button for SEARCH BOX in Social Network Screen
   //i.e., screen 3
@@ -362,6 +510,25 @@ public class Main extends Application  {
    
    secondaryStage.show();
    
+ //pop-up window for the user
+   BorderPane borderPane4add = new BorderPane();
+    firstRow = new HBox(new Label("Searched for "+ textF5.getText()+" in the Social Network"));
+   
+    VerticalBox = new VBox(firstRow);
+      
+      VerticalBox.setSpacing(20.0);
+
+      VerticalBox.setAlignment(Pos.CENTER);
+
+
+      firstRow.setSpacing(5.0);
+
+      firstRow.setAlignment(Pos.CENTER);
+      
+   borderPane4add.setCenter(VerticalBox);
+   Scene sceneAdd = new Scene(borderPane4add,300,150);
+   tertiaryStage.setScene(sceneAdd);
+   tertiaryStage.show();
     });
   
   displayNetwork.setOnAction(e -> {
@@ -373,6 +540,36 @@ public class Main extends Application  {
 	Scene testScene = new Scene(borderPane4, WINDOW_WIDTH, WINDOW_HEIGHT);
 	primaryStage.setScene(testScene);
  });
+  
+    removeFriendship.setOnAction(e -> {
+    friend1.setText(textRFL.getText());
+    friend2.setText(textRFL1.getText());
+    friendNetwork.removeFriends(textRFL.getText(), textRFL1.getText());
+  //pop-up window for the user
+    BorderPane borderPane4add = new BorderPane();
+    HBox firstRow = new HBox(new Label("Removed "+textRFL.getText()+" and "+textRFL1.getText()+" as friends."));
+    HBox secondRow = new HBox(new Label("Hope they two get back together"));
+    
+    VBox VerticalBox = new VBox(firstRow,secondRow);
+       
+       VerticalBox.setSpacing(20.0);
+
+       VerticalBox.setAlignment(Pos.CENTER);
+
+
+       firstRow.setSpacing(5.0);
+
+       firstRow.setAlignment(Pos.CENTER);
+       
+       secondRow.setSpacing(5.0);
+
+       secondRow.setAlignment(Pos.CENTER);
+       
+    borderPane4add.setCenter(VerticalBox);
+    Scene sceneAdd = new Scene(borderPane4add,300,150);
+    tertiaryStage.setScene(sceneAdd);
+    tertiaryStage.show();
+    });
 
 
     // Main layout is Border Pane example (top,left,center,right,bottom)
@@ -400,8 +597,12 @@ public class Main extends Application  {
     HBox sixthRow = new HBox(exportFriendsList, textF7, export);
     
     HBox seventhRow = new HBox (addFriendsLabel, textAF,textAF1, addFriend);
+    
+    HBox eightRow = new HBox (removeFriendshipLabel, textRFL, textRFL1, removeFriendship);
 
     HBox buttons = new HBox(removeAll, displayNetwork);
+    
+    
 
 
     buttons.setSpacing(5.0);
@@ -411,7 +612,7 @@ public class Main extends Application  {
 
       VBox VerticalBox = new VBox(firstRow, secondRow, thirdRow,
   
-          fourthRow, fifthRow, sixthRow, seventhRow, buttons);
+          fourthRow, fifthRow, sixthRow, seventhRow,eightRow, buttons);
 
     VerticalBox.setSpacing(20.0);
 
@@ -450,6 +651,10 @@ public class Main extends Application  {
     seventhRow.setSpacing(5.0);
 
     seventhRow.setAlignment(Pos.CENTER);
+    
+    eightRow.setSpacing(5.0);
+
+    eightRow.setAlignment(Pos.CENTER);
 
     BorderPane lowerPane3 = new BorderPane();
     Button exitButton3 = new Button("Exit");
