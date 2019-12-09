@@ -111,9 +111,9 @@ public class Main extends Application  {
 
     TextField textF7 = new TextField("enter file name ");
     
-    TextField textAF = new TextField("enter file name ");
+    TextField textAF = new TextField("enter username");
 
-    TextField textAF1 = new TextField("enter file name ");
+    TextField textAF1 = new TextField("enter friend name ");
     
     
 
@@ -194,11 +194,10 @@ public class Main extends Application  {
     removeAll.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
     goBackToScene2.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
     
-
     add.setOnAction(e -> {
+      
       friend1.setText(textF1.getText());   
       friendNetwork.addUser(textF1.getText());
-      primaryStage.setScene(finalScene);
     });
     
     remove.setOnAction(e -> {
@@ -212,24 +211,100 @@ public class Main extends Application  {
 	friend2.setText(textF4.getText()); 
 	friendNetwork.getMutualFriends(textF3.getText(), textF4.getText());
     });
-   
-   
-   search.setOnAction(e -> {
-	friend1.setText(textF5.getText()); 
-	friendNetwork.getUser(textF5.getText());
-    });
-   
+  
+  
+  //Action set code for DISPLAY 
+  //Displays all the connections of a certain user
   display.setOnAction(e -> {
-	friend1.setText(textF6.getText()); 
-	friendNetwork.getFriends(textF6.getText());
+	friend1.setText(textF6.getText());
+	Set<Person> neighboursSet=friendNetwork.getFriends(textF6.getText());
+	String labelText="";
+	if (neighboursSet.size()!=0) {
+	String[] temp=new String[neighboursSet.size()];
+	int i=0;
+	for (Person per:neighboursSet) {
+	  temp[i]=per.getName();
+	  i++;
+	}
+	labelText=textF6.getText()+" has the following connections:\n";
+	for (i=0;i<temp.length;i++) {
+	  labelText=labelText+temp[i]+"\n";
+	}
+	}
+	if (neighboursSet.size()==0) {
+	  labelText=textF6.getText()+" has no connections.";
+	}
+	BorderPane borderPane4display = new BorderPane();
+	
+	HBox firstRow = new HBox(new Label(labelText));
+	
+	VBox VerticalBox = new VBox(firstRow);
+	   
+	   VerticalBox.setSpacing(20.0);
+
+	   VerticalBox.setAlignment(Pos.CENTER);
+
+
+	   firstRow.setSpacing(5.0);
+
+	   firstRow.setAlignment(Pos.CENTER);
+	   
+	   borderPane4display.setCenter(VerticalBox);
+	   
+	   Scene sceneSearch = new Scene(borderPane4display, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+	   primaryStage.setScene(sceneSearch);
+	
+	
    });
   
   addFriend.setOnAction(e -> {
       	friend1.setText(textAF.getText()); 
-	friend2.setText(textAF1.getText());  
+	friend2.setText(textAF1.getText()); 
 	friendNetwork.addFriends(textAF.getText(), textAF1.getText());
  });
+  
+  
+  //ACTION button for SEARCH BOX in Social Network Screen
+  //i.e., screen 3
+  //This sets the vertical box and the horizontal box. Then opens a new screen with
+  //a new Border Pane
+  search.setOnAction(e -> {
+   friend1.setText(textF5.getText()); 
+   Person temp=friendNetwork.getUser(textF5.getText());
+   BorderPane borderPane4search = new BorderPane();
+   
+   HBox firstRow = new HBox(new Label("User details are:"), new Label(textF5.getText()));
+   //after the work on Get Connections is done:
+   //this should be in the bracket
+   //""+friendNetwork.getFriends(friend1.getText()).size() 
+   int numFriends=0;
+   if (!(friendNetwork.getFriends(textF5.getText())==null)) {
+     numFriends=friendNetwork.getFriends(temp.getName()).size();
+   }
+   HBox secondRow = new HBox(new Label("Number of connections of " + friend1.getText()+":"), new Label(""+ numFriends));
+   VBox VerticalBox = new VBox(firstRow, secondRow);
+   
+   VerticalBox.setSpacing(20.0);
 
+   VerticalBox.setAlignment(Pos.CENTER);
+
+
+   firstRow.setSpacing(5.0);
+
+   firstRow.setAlignment(Pos.CENTER);
+
+
+   secondRow.setSpacing(5.0);
+
+   secondRow.setAlignment(Pos.CENTER);
+   
+   borderPane4search.setCenter(VerticalBox);
+   
+   Scene sceneSearch = new Scene(borderPane4search, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+   primaryStage.setScene(sceneSearch);
+    });
   
   displayNetwork.setOnAction(e -> {
 	friend1.setText(textF6.getText()); 
@@ -276,9 +351,9 @@ public class Main extends Application  {
     buttons.setAlignment(Pos.CENTER);
 
 
-    VBox VerticalBox = new VBox(firstRow, secondRow, thirdRow,
-
-        fourthRow, fifthRow, sixthRow, seventhRow, buttons);
+      VBox VerticalBox = new VBox(firstRow, secondRow, thirdRow,
+  
+          fourthRow, fifthRow, sixthRow, seventhRow, buttons);
 
     VerticalBox.setSpacing(20.0);
 
