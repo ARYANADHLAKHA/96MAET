@@ -1,3 +1,4 @@
+package Application;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
@@ -226,14 +227,21 @@ public class SocialNetwork implements SocialNetworkADT<Person, Graph> {
     }
 
   }
+public Person getUser(String name) {
+    return graphObject.getNode(name);
+    
+}
 
+public Graph getGraph() {
+    return graphObject;
+}
   @Override
   public void savetoFile(File toSave) {
     // TODO Auto-generated method stub
 
   }
   
-  private Person lookupHelper(String name) {
+  public Person lookupHelper(String name) {
     return graphObject.getNode(name);
   }
 
