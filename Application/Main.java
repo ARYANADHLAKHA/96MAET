@@ -672,8 +672,29 @@ public class Main extends Application  {
     exitButton3.setAlignment(Pos.CENTER);
 
     exitButton3.setOnAction(e -> {
-      Platform.exit();
-      System.exit(0);
+      BorderPane shutDown = new BorderPane();
+      HBox fRow = new HBox(new Label("Hope you enjoyed using The Social Network."));
+      HBox sRow = new HBox(new Label("See you again!"));
+      
+      VBox vBox = new VBox(fRow,sRow);
+        
+        vBox.setSpacing(20.0);
+
+        vBox.setAlignment(Pos.CENTER);
+
+
+        fRow.setSpacing(5.0);
+
+        fRow.setAlignment(Pos.CENTER);
+        
+        sRow.setSpacing(5.0);
+
+        sRow.setAlignment(Pos.CENTER);
+        
+     shutDown.setCenter(vBox);
+     Scene sceneAdd = new Scene(shutDown,300,150);
+     primaryStage.setScene(sceneAdd);
+     primaryStage.show();
     });
 
     lowerPane3.setRight(exitButton3);
