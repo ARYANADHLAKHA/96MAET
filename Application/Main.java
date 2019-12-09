@@ -194,6 +194,8 @@ public class Main extends Application  {
     removeAll.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
     goBackToScene2.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
     
+    Stage secondaryStage=new Stage();
+    
     add.setOnAction(e -> {
       
       friend1.setText(textF1.getText());   
@@ -209,7 +211,47 @@ public class Main extends Application  {
    lookUp.setOnAction(e -> {
 	friend1.setText(textF3.getText()); 
 	friend2.setText(textF4.getText()); 
-	friendNetwork.getMutualFriends(textF3.getText(), textF4.getText());
+	Set<Person> friendsSet=friendNetwork.getMutualFriends(textF3.getText(), textF4.getText());;
+    String labelText="";
+    if (friendsSet.size()!=0) {
+    String[] temp=new String[friendsSet.size()];
+    int i=0;
+    for (Person per:friendsSet) {
+      temp[i]=per.getName();
+      i++;
+    }
+    labelText=textF3.getText()+" and "+textF4.getText()+" have the following mutual friend(s):\n";
+    for (i=0;i<temp.length;i++) {
+      labelText=labelText+temp[i]+"\n";
+    }
+    }
+    if (friendsSet.size()==0) {
+      labelText=textF3.getText()+" and "+textF4.getText()+" have no mutual friends.";
+    }
+    BorderPane borderPane4display = new BorderPane();
+    
+    HBox firstRow = new HBox(new Label(labelText));
+    
+    VBox VerticalBox = new VBox(firstRow);
+       
+       VerticalBox.setSpacing(20.0);
+
+       VerticalBox.setAlignment(Pos.CENTER);
+
+
+       firstRow.setSpacing(5.0);
+
+       firstRow.setAlignment(Pos.CENTER);
+       
+       borderPane4display.setCenter(VerticalBox);
+       
+       Scene sceneSearch = new Scene(borderPane4display, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+       secondaryStage.setScene(sceneSearch);
+       
+       secondaryStage.show();
+    
+    
     });
   
   
@@ -253,7 +295,9 @@ public class Main extends Application  {
 	   
 	   Scene sceneSearch = new Scene(borderPane4display, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	   primaryStage.setScene(sceneSearch);
+	   secondaryStage.setScene(sceneSearch);
+	   
+	   secondaryStage.show();
 	
 	
    });
@@ -298,12 +342,26 @@ public class Main extends Application  {
    secondRow.setSpacing(5.0);
 
    secondRow.setAlignment(Pos.CENTER);
+  
    
+   Button loadButton = new Button("LOAD");
+   loadButton.setStyle("-fx-font: 28 arial;");
+
+//   loadButton.setOnAction(l -> {
+//
+//     primaryStage.setScene(mainScene);
+//
+//   });
+
    borderPane4search.setCenter(VerticalBox);
    
    Scene sceneSearch = new Scene(borderPane4search, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-   primaryStage.setScene(sceneSearch);
+
+   secondaryStage.setScene(sceneSearch);
+   
+   secondaryStage.show();
+   
     });
   
   displayNetwork.setOnAction(e -> {
