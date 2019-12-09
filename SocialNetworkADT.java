@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -73,8 +74,9 @@ public interface SocialNetworkADT<K, V> {
 
   /**
    * @param toLoad- file from which the instructions have to be loaded
+   * @throws IOException 
    */
-  public void LoadFromFile(File toLoad);
+  public void LoadFromFile(File toLoad) ;
 
   /**
    * @param toSave - file to save the instructions into (log file)
