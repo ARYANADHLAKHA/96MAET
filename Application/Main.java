@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 // imported for the collections
@@ -48,7 +50,7 @@ import javafx.scene.layout.CornerRadii;
 
 
 
-public class Main extends Application {
+public class Main extends Application  {
 
   // store any command-line arguments that were entered.
 
@@ -92,7 +94,8 @@ public class Main extends Application {
      */
     args = this.getParameters().getRaw();
 
-
+    SocialNetwork friendNetwork = new SocialNetwork();
+    
 
     TextField textF1 = new TextField("type username here");
 
@@ -107,12 +110,25 @@ public class Main extends Application {
     TextField textF6 = new TextField("type username here");
 
     TextField textF7 = new TextField("enter file name ");
+    
+    TextField textAF = new TextField("enter file name ");
+
+    TextField textAF1 = new TextField("enter file name ");
+    
+    
 
     BorderPane borderPane4 = new BorderPane();
-    Button friend1 = new Button(textF1.getText());
+    Button friend1 = new Button();
+    Button friend2 = new Button();
     borderPane4.setCenter(friend1);
     Scene finalScene = new Scene(borderPane4, WINDOW_WIDTH, WINDOW_HEIGHT);
-
+    Button goBackToScene2 = new Button ("Go back to options");
+    goBackToScene2.setOnAction (e -> {
+	primaryStage.setScene(Scene1);
+    });
+    goBackToScene2.setAlignment(Pos.CENTER);
+    BorderPane lowerPaneFinal = new BorderPane();
+   lowerPaneFinal.setRight(goBackToScene2);
 
 
     textF1.setStyle("-fx-text-fill: black; -fx-font: 15 arial;");
@@ -134,6 +150,8 @@ public class Main extends Application {
     Label displayConnections = new Label("Display connections");
 
     Label exportFriendsList = new Label("Export friends list");
+    
+    Label addFriendsLabel = new Label ("Add friends");
 
     addUserName.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
     removeUser.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
@@ -141,6 +159,7 @@ public class Main extends Application {
     searchUser.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
     displayConnections.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
     exportFriendsList.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
+    addFriendsLabel.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
 
 
     Button add = new Button("add");
@@ -154,25 +173,73 @@ public class Main extends Application {
     Button display = new Button("display");
 
     Button export = new Button("export");
+    
+    Button addFriend = new Button ("Add Friend");
 
     Button displayNetwork = new Button("DISPLAY NETWORK");
 
     Button removeAll = new Button("REMOVE ALL USERS");
+    
+    
+    
 
     add.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
     remove.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
     lookUp.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
     search.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
     display.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
+    addFriend.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
     export.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
     displayNetwork.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
     removeAll.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
+    goBackToScene2.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
+    
 
     add.setOnAction(e -> {
-      friend1.setText(textF1.getText());
+      friend1.setText(textF1.getText());   
+      friendNetwork.addUser(textF1.getText());
       primaryStage.setScene(finalScene);
-
     });
+    
+    remove.setOnAction(e -> {
+	friend1.setText(textF2.getText()); 
+	friendNetwork.removeUser(textF2.getText());
+	//primaryStage.setScene(finalScene);
+    });
+    
+   lookUp.setOnAction(e -> {
+	friend1.setText(textF3.getText()); 
+	friend2.setText(textF4.getText()); 
+	friendNetwork.getMutualFriends(textF3.getText(), textF4.getText());
+    });
+   
+   
+   search.setOnAction(e -> {
+	friend1.setText(textF5.getText()); 
+	friendNetwork.getUser(textF5.getText());
+    });
+   
+  display.setOnAction(e -> {
+	friend1.setText(textF6.getText()); 
+	friendNetwork.getFriends(textF6.getText());
+   });
+  
+  addFriend.setOnAction(e -> {
+      	friend1.setText(textAF.getText()); 
+	friend2.setText(textAF1.getText());  
+	friendNetwork.addFriends(textAF.getText(), textAF1.getText());
+ });
+
+  
+  displayNetwork.setOnAction(e -> {
+	friend1.setText(textF6.getText()); 
+	friendNetwork.getFriends(textF6.getText());
+	BorderPane borderPane4connections = new BorderPane();
+	borderPane4connections.setCenter(friend1);
+	Set<Person> friends= friendNetwork.getFriends(textF6.getText());
+	Scene testScene = new Scene(borderPane4, WINDOW_WIDTH, WINDOW_HEIGHT);
+	primaryStage.setScene(testScene);
+ });
 
 
     // Main layout is Border Pane example (top,left,center,right,bottom)
@@ -198,7 +265,8 @@ public class Main extends Application {
     HBox fifthRow = new HBox(displayConnections, textF6, display);
 
     HBox sixthRow = new HBox(exportFriendsList, textF7, export);
-
+    
+    HBox seventhRow = new HBox (addFriendsLabel, textAF,textAF1, addFriend);
 
     HBox buttons = new HBox(removeAll, displayNetwork);
 
@@ -210,7 +278,7 @@ public class Main extends Application {
 
     VBox VerticalBox = new VBox(firstRow, secondRow, thirdRow,
 
-        fourthRow, fifthRow, sixthRow, buttons);
+        fourthRow, fifthRow, sixthRow, seventhRow, buttons);
 
     VerticalBox.setSpacing(20.0);
 
@@ -245,6 +313,10 @@ public class Main extends Application {
     sixthRow.setSpacing(5.0);
 
     sixthRow.setAlignment(Pos.CENTER);
+    
+    seventhRow.setSpacing(5.0);
+
+    seventhRow.setAlignment(Pos.CENTER);
 
     BorderPane lowerPane3 = new BorderPane();
     Button exitButton3 = new Button("Exit");
