@@ -160,6 +160,7 @@ public class SocialNetwork implements SocialNetworkADT<Person, Graph> {
       // marking them visited
       Set<Person> neighbors = graphObject.getNeighbours(newPerson);
       for (Person neighbor : neighbors) {
+        graphToReturn.addEdge(newPerson, neighbor);
         if(!neighbor.getVisited()) {
           // marking each successor visited
           neighbor.setVisited(true);

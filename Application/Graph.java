@@ -9,7 +9,7 @@ public class Graph implements GraphADT<Person> {
   // the graph
   private Map<Person, ArrayList<Person>> graph;
   // total number of edges in the graph
-  private int numEdges;
+  public int numEdges;
   /*
    * Default no-argument constructor
    */
@@ -151,6 +151,7 @@ public class Graph implements GraphADT<Person> {
     Set<Person> neighboursSet = new HashSet<Person>();
     ArrayList<Person> neighboursList = this.graph.get(person);
     if(neighboursList == null) {
+    //test print statement
       return neighboursSet;
     }
     for(int i=0; i<neighboursList.size(); i++) {

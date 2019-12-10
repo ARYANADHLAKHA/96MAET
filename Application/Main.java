@@ -9,6 +9,9 @@ package Application;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -38,6 +41,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -51,6 +55,8 @@ import javafx.scene.layout.CornerRadii;
 
 
 public class Main extends Application  {
+  
+  //yeah
 
   // store any command-line arguments that were entered.
 
@@ -67,7 +73,80 @@ public class Main extends Application  {
   private static final String APP_TITLE = "THE SOCIAL NETWORK";
 
 
+  private void DispNetwork (String ce, Graph graphType, Stage stage) {
+    Graph tempGraph=new Graph();
+    tempGraph=graphType;
+    StackPane root = new StackPane();
+    Set<Person>connects=new HashSet<Person>();
+    connects=graphType.getNeighbours(tempGraph.getNode(ce));
+    System.out.println(ce+" total number of nodes "+tempGraph.getAllNodes().size());
+    for (Person per: tempGraph.getAllNodes()) {
+      System.out.println(per.getName());
+    }
+    Button [] buttons = new Button[connects.size()];
+    HBox [] hBoxes = new HBox [buttons.length];
+  //  VBox [] vBoxes = new VBox [buttons.length];
+    VBox vbox2 = new VBox(buttons.length);        
 
+    Iterator<Person> iter=connects.iterator();
+    BorderPane borderPane4view = new BorderPane();
+    for (int i=0;i<connects.size();i++) {
+      Person per=iter.next();
+      System.out.println("friend is "+per.getName());
+      buttons[i]=new Button (per.getName());
+      buttons[i].setStyle("-fx-text-fill: black; -fx-font: 10 arial;");
+      buttons[i].setOnAction (e -> {
+        DispNetwork(per.getName(), graphType, stage);         
+        });
+      hBoxes[i]=new HBox(buttons[i]);    
+      
+      hBoxes[i].setSpacing(5.0);
+      
+      hBoxes[i].setAlignment(Pos.CENTER);
+      vbox2.getChildren().add(hBoxes[i]);
+   //   borderPane4view.setCenter(hBoxes[i]);
+    }
+    vbox2.getChildren().add(new HBox (new Label("Showing all the friends of "+ce)));
+   
+    root.getChildren().addAll(vbox2);
+    
+    Scene sceneAdd = new Scene(root,400,150);
+    stage.setScene(sceneAdd);
+    stage.show();
+  }
+//  private void DispGraph (String input, Set<Graph> graph) {
+//    
+//  }
+  private void dispGraph(TextField textDispGraph, Set<Graph> friends) {
+    // TODO Auto-generated method stub
+    
+    String input=textDispGraph.getText();
+    input=input.trim();
+    char c=input.charAt(0);
+    int val=Character.getNumericValue(c);
+    Iterator<Graph> iter=friends.iterator();
+    Graph temp=new Graph();
+
+    for (int i=0;i<val;i++) {
+      if (iter.hasNext())
+      temp=(Graph)iter.next();
+    }
+    Set<Person> persons=new HashSet<Person>();
+       persons= temp.getAllNodes();
+    Iterator <Person> iterator= persons.iterator();
+    Stage stage=new Stage();
+    int maxConnections=0;
+    Person toReturn=null;
+    while(iterator.hasNext()) {
+    Person ce=(Person)iterator.next();
+    if (temp.getNeighbours(temp.getNode(ce.getName())).size()>maxConnections) {
+      maxConnections=temp.getNeighbours(temp.getNode(ce.getName())).size();
+      toReturn=ce;
+      }
+    System.out.println("Returned value for tree: "+toReturn.getName());
+    }
+    DispNetwork (toReturn.getName(), temp, stage);
+  }
   @Override
 
   public void start(Stage primaryStage) throws Exception {
@@ -118,7 +197,8 @@ public class Main extends Application  {
     TextField textRFL = new TextField("enter username 1 here ");
     
     TextField textRFL1 = new TextField("enter username 2 here ");
-
+    
+    TextField textDispGraph = new TextField("enter your option here ");
 
     
     
@@ -144,6 +224,7 @@ public class Main extends Application  {
     textF5.setStyle("-fx-text-fill: black; -fx-font: 15 arial;");
     textF6.setStyle("-fx-text-fill: black; -fx-font: 15 arial;");
     textF7.setStyle("-fx-text-fill: black; -fx-font: 15 arial;");
+    textDispGraph.setStyle("-fx-text-fill: black; -fx-font: 12 arial;");
 
     Label addUserName = new Label("Add username");
 
@@ -161,7 +242,7 @@ public class Main extends Application  {
     
     Label removeFriendshipLabel = new Label ("Remove friendship");
     
-    Label displayBox = new Label ("");
+    Label displayBox = new Label ("Choose a graph\n to display");
 
     addUserName.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
     removeUser.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
@@ -171,6 +252,7 @@ public class Main extends Application  {
     exportFriendsList.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
     addFriendsLabel.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
     removeFriendshipLabel.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
+   displayBox.setStyle("-fx-text-fill: black; -fx-font: 10 arial;");
 
 
     Button add = new Button("add");
@@ -193,6 +275,8 @@ public class Main extends Application  {
     
     Button removeFriendship = new Button ("Remove Friendship");
     
+    Button displayGraph = new Button("display graph");
+    
     
 
     add.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
@@ -206,6 +290,7 @@ public class Main extends Application  {
     removeAll.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
     goBackToScene2.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
     removeFriendship.setStyle("-fx-text-fill: black; -fx-font: 19 arial;");
+    displayGraph.setStyle("-fx-text-fill: black; -fx-font: 10 arial;");
     
     Stage secondaryStage=new Stage();
     
@@ -513,7 +598,7 @@ public class Main extends Application  {
  //pop-up window for the user
    BorderPane borderPane4add = new BorderPane();
     firstRow = new HBox(new Label("Searched for "+ textF5.getText()+" in the Social Network"));
-   
+    
     VerticalBox = new VBox(firstRow);
       
       VerticalBox.setSpacing(20.0);
@@ -530,17 +615,67 @@ public class Main extends Application  {
    tertiaryStage.setScene(sceneAdd);
    tertiaryStage.show();
     });
-  
+    
+
+ 
   displayNetwork.setOnAction(e -> {
+    
 	friend1.setText(textF6.getText()); 
 	friendNetwork.getFriends(textF6.getText());
 	BorderPane borderPane4connections = new BorderPane();
 	borderPane4connections.setCenter(friend1);
-	Set<Person> friends= friendNetwork.getFriends(textF6.getText());
-	Scene testScene = new Scene(borderPane4, WINDOW_WIDTH, WINDOW_HEIGHT);
-	primaryStage.setScene(testScene);
+	HBox firstOne= new HBox (new Label("Following are the connections in the graph. \n Pick one from the "
+	    + "following for individual trees"));
+	Set<Graph> friends= friendNetwork.getConnectedComponents(); 
+	displayGraph.setOnAction(m ->{  
+      dispGraph(textDispGraph,friends);
+    });
+	if (friends!=null) {
+	HBox [] horizontalBoxes =new HBox [friends.size()];
+	String textPerLine="";
+	Iterator<Graph> iter=friends.iterator();
+	
+	Graph graph=new Graph();
+	
+    BorderPane borderPane4view = new BorderPane();
+	
+	for (int i=0;i<friends.size();i++) {
+	  textPerLine=textPerLine+(int)(i+1)+". ";
+	  graph=(Graph)iter.next();
+	  Set<Person> persons=graph.getAllNodes();
+	  Iterator <Person> iterator= persons.iterator();
+	  while (iterator.hasNext()) {
+	  Person per=iterator.next();
+	  textPerLine=textPerLine+per.getName()+" "; 
+	  }
+	  horizontalBoxes[i]=new HBox( new Label (textPerLine));	
+	  
+	  horizontalBoxes[i].setSpacing(5.0);
+	  
+      horizontalBoxes[i].setAlignment(Pos.CENTER);
+      
+	  borderPane4view.setCenter(horizontalBoxes[i]);
+	  
+	  }
+	firstOne.setSpacing(5.0);
+    
+	HBox bottom = new HBox (displayBox,textDispGraph,displayGraph);
+	bottom.setSpacing(5.0);
+    
+    bottom.setAlignment(Pos.CENTER);
+    
+    firstOne.setAlignment(Pos.CENTER);
+    borderPane4view.setBottom(bottom);
+	borderPane4view.setTop(firstOne);
+	
+	  Scene sceneAdd = new Scene(borderPane4view,400,150);
+	    tertiaryStage.setScene(sceneAdd);
+	    tertiaryStage.show();
+	    
+	}
  });
   
+    
     removeFriendship.setOnAction(e -> {
     friend1.setText(textRFL.getText());
     friend2.setText(textRFL1.getText());
@@ -668,9 +803,9 @@ public class Main extends Application  {
         "-fx-max-width: 100px; " +
 
         "-fx-max-height: 100px; -fx-text-fill: yellow; -fx-font: 17 arial;");
-
+    
     exitButton3.setAlignment(Pos.CENTER);
-
+    
     exitButton3.setOnAction(e -> {
       BorderPane shutDown = new BorderPane();
       HBox fRow = new HBox(new Label("Hope you enjoyed using The Social Network."));
@@ -930,6 +1065,7 @@ public class Main extends Application  {
   }
 
 
+
   /**
    * 
    * @param args
@@ -941,5 +1077,4 @@ public class Main extends Application  {
     launch(args);
 
   }
-
 }
