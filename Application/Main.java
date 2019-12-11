@@ -163,6 +163,7 @@ public class Main extends Application  {
   public void start(Stage primaryStage) throws Exception {
 
     // save args example
+    int count=0;
 
     args = this.getParameters().getRaw();
 
@@ -199,7 +200,7 @@ public class Main extends Application  {
 
     TextField textF6 = new TextField("type username here");
 
-    TextField textF7 = new TextField("enter file name "); //Export text field
+    TextField textF7 = new TextField("enter file name"); //Export text field
     
     TextField textAF = new TextField("enter username");
 
@@ -376,6 +377,7 @@ public class Main extends Application  {
       
       friend1.setText(textF7.getText());   
       File f1= new File(textF7.getText()+".txt");
+      friendNetwork.txtFileName=textF7.getText();
       friendNetwork.savetoFile(f1);
     //pop-up window for the user
       BorderPane borderPane4add = new BorderPane();
@@ -847,8 +849,10 @@ public class Main extends Application  {
   //ADDED THE ALERT BOX IF THERE AR ENO GRAPHS TO DISPLAY
   displayNetwork.setOnAction(e -> {
     Set<Graph> friends= friendNetwork.getConnectedComponents();
+    
     //there is no graph to display
     if(friends.size() == 0) {
+      
       BorderPane borderPane4add = new BorderPane();
       HBox firstRow = new HBox(new Label("No Graphs to display."));
       
@@ -1093,7 +1097,15 @@ public class Main extends Application  {
     
     exitButton3.setOnAction(e -> {
       BorderPane shutDown = new BorderPane();
-      HBox fRow = new HBox(new Label("Hope you enjoyed using The Social Network."));
+      String message;
+      if(textF7.getText().equals("enter file name") || textF7.getText().equals("") || friendNetwork.txtFileName.equals(""))
+      {
+        message = "Hope you enjoyed using The Social Network.";
+      }
+      else {
+        message = "Your commands were saved in the file: "+friendNetwork.txtFileName+"\nHope you enjoyed using The Social Network.";
+      }
+      HBox fRow = new HBox(new Label(message));
       HBox sRow = new HBox(new Label("See you again!"));
       
       VBox vBox = new VBox(fRow,sRow);
@@ -1112,9 +1124,10 @@ public class Main extends Application  {
         sRow.setAlignment(Pos.CENTER);
         
      shutDown.setCenter(vBox);
-     Scene sceneAdd = new Scene(shutDown,300,150);
+     Scene sceneAdd = new Scene(shutDown,400, 200);
      primaryStage.setScene(sceneAdd);
      primaryStage.show();
+      
     });
 
     lowerPane3.setRight(exitButton3);

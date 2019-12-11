@@ -22,10 +22,13 @@ import javafx.stage.Stage;
 
 public class SocialNetwork implements SocialNetworkADT<Person, Graph> {
 
-
+  public String txtFileName;
+  
   private Graph graphObject;
 
-  private File logFile;
+  public File logFile;
+  
+  public  int count=0;
 
 
   public SocialNetwork() {
@@ -33,6 +36,8 @@ public class SocialNetwork implements SocialNetworkADT<Person, Graph> {
     this.graphObject = new Graph();
 
     this.logFile = new File("logFile.txt");
+    
+    this.txtFileName="";
 
   }
 
@@ -487,7 +492,7 @@ public class SocialNetwork implements SocialNetworkADT<Person, Graph> {
   public Set<Graph> getConnectedComponents() {
 
     Set<Graph> graphToReturn = new HashSet<Graph>();
-
+    
     // a set that stores all the node of the graph
 
     Set<Person> allNodes = graphObject.getAllNodes();
@@ -673,7 +678,7 @@ public class SocialNetwork implements SocialNetworkADT<Person, Graph> {
   @Override
 
   public void savetoFile(File toSave) {
-
+    
     try {
 
       BufferedReader ReadFile = new BufferedReader(new FileReader(logFile));
