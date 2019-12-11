@@ -4,8 +4,7 @@ public class Person {
   private String name;
   private boolean isVisited;
  
-  public Person(String name)
-  {
+  public Person(String name){
    this.name = name;
    this.isVisited = false;
   }
