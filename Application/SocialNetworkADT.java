@@ -1,4 +1,5 @@
 package Application;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -8,7 +9,7 @@ public interface SocialNetworkADT<K, V> {
 
   /**
    * @param name1- First friend
-   * @param name2 -Second friend
+   * @param name2  -Second friend
    * @return true once the friendship is created
    * 
    *         Use getNode to get the two person Objects and then use addEdge between the two persons
@@ -20,7 +21,8 @@ public interface SocialNetworkADT<K, V> {
    * @param name2 Second friend
    * @return true once the edge is removed
    * 
-   *         Use getNode to get the two Person objects and then use removeEdge between the two persons
+   *         Use getNode to get the two Person objects and then use removeEdge between the two
+   *         persons
    */
   public boolean removeFriends(String name1, String name2);
 
@@ -54,8 +56,8 @@ public interface SocialNetworkADT<K, V> {
    * @param name2 - the name of the second friend
    * @return a set containing the mutual friends
    * 
-   *         Use getFriends to get the friend Sets of the two friends. Go through the friend sets, find the
-   *         common elements and create a new set with those elements
+   *         Use getFriends to get the friend Sets of the two friends. Go through the friend sets,
+   *         find the common elements and create a new set with those elements
    */
   public Set<K> getMutualFriends(String name1, String name2);
 
@@ -64,7 +66,7 @@ public interface SocialNetworkADT<K, V> {
    * @param name2 - the second friend
    * @return - a list with the shortest path between the two friends
    * 
-   *Use BFS to get shortest path (have to figure out)
+   *         Use BFS to get shortest path (have to figure out)
    */
   public List<K> getShortestPath(String name1, String name2);
 
@@ -75,9 +77,9 @@ public interface SocialNetworkADT<K, V> {
 
   /**
    * @param toLoad- file from which the instructions have to be loaded
-   * @throws IOException 
+   * @throws IOException
    */
-  public void LoadFromFile(File toLoad) ;
+  public void LoadFromFile(File toLoad);
 
   /**
    * @param toSave - file to save the instructions into (log file)

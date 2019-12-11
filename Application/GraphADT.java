@@ -7,20 +7,19 @@ import java.util.Set;
  *
  */
 public interface GraphADT<K> {
+  public boolean addEdge(K person1, K person2) throws Exception;
 
-  public boolean addEdge(K person1, K person2);
+  public boolean removeEdge(K person1, K person2) throws Exception;
 
-  public boolean removeEdge(K person1, K person2);
+  public boolean addNode(K person) throws Exception;
 
-  public boolean addNode(K person);
-  
-  public boolean removeNode(K person);
+  public boolean removeNode(K person) throws Exception;
 
-  public Set<K> getNeighbours(K person);
+  public Set<K> getNeighbours(K person) throws Exception;
 
   public K getNode(String name);
-  
+
   public Set<K> getAllNodes();
-
-
 }
+
+
