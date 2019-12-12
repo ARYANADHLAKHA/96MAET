@@ -918,77 +918,191 @@ public class Main extends Application {
     scene3display.setAlignment(Pos.CENTER);
     borderPane3.setTop(scene3display);
 
-    HBox firstRow = new HBox(addUserName, textF1, add);
+    HBox firstRowL = new HBox(addUserName);
+    HBox firstRowC= new HBox( textF1);
+    HBox firstRowR= new HBox( add);
 
-    HBox secondRow = new HBox(removeUser, textF2, remove);
+    HBox secondRowL = new HBox(removeUser);
+    HBox secondRowC= new HBox(textF2);
+    HBox secondRowR= new HBox(remove);
+    
+   // HBox secondRow = new HBox(removeUser, textF2, remove);
+    HBox thirdRowL = new HBox(findMutualFriends);
+    HBox thirdRowC= new HBox(textF3,textF4);
+    HBox thirdRowR= new HBox(lookUp);
+    
+   // HBox thirdRow = new HBox(findMutualFriends, textF3, textF4, lookUp);
+    HBox fourthRowL = new HBox(searchUser);
+    HBox fourthRowC= new HBox(textF5);
+    HBox fourthRowR= new HBox(search);
+    
+  //  HBox fourthRow = new HBox(searchUser, textF5, search);
+    HBox fifthRowL = new HBox(displayConnections);
+    HBox fifthRowC= new HBox(textF6);
+    HBox fifthRowR= new HBox(display);
+    
+    //HBox fifthRow = new HBox(displayConnections, textF6, display);
 
-    HBox thirdRow = new HBox(findMutualFriends, textF3, textF4, lookUp);
+    HBox sixthRowL = new HBox(exportFriendsList);
+    HBox sixthRowC= new HBox(textF7);
+    HBox sixthRowR= new HBox(export);
+    
+   // HBox sixthRow = new HBox(exportFriendsList, textF7, export);
+    
+    HBox seventhRowL = new HBox(addFriendsLabel);
+    HBox seventhRowC= new HBox(textAF,textAF1);
+    HBox seventhRowR= new HBox(addFriend);
+    
+  //  HBox seventhRow = new HBox (addFriendsLabel, textAF,textAF1, addFriend);
+    
+    HBox eightRowL = new HBox(removeFriendshipLabel);
+    HBox eightRowC= new HBox(textRFL,textRFL1);
+    HBox eightRowR= new HBox(removeFriendship);
+    
+   // HBox eightRow = new HBox (removeFriendshipLabel, textRFL, textRFL1, removeFriendship);
 
-    HBox fourthRow = new HBox(searchUser, textF5, search);
+   // HBox buttons = new HBox(removeAll, displayNetwork);
+    
+    
+   HBox center = new HBox (removeAll,displayNetwork);
 
-    HBox fifthRow = new HBox(displayConnections, textF6, display);
+//    buttons.setSpacing(5.0);
+//
+//    buttons.setAlignment(Pos.CENTER);
+    HBox tempLabel=new HBox (new Label (""));
+    
+      VBox vBoxC = new VBox(firstRowC, secondRowC,
+  
+          fourthRowC, fifthRowC, sixthRowC, seventhRowC, thirdRowC,eightRowC);
+      
+      VBox vBoxL = new VBox( firstRowL, secondRowL,
+          
+          fourthRowL, fifthRowL, sixthRowL, seventhRowL, thirdRowL, eightRowL);
+      
+      VBox vBoxR = new VBox(firstRowR, secondRowR,
+          
+          fourthRowR, fifthRowR, sixthRowR, seventhRowR, thirdRowR, eightRowR);
+    
+    vBoxL.setSpacing(26.0);
 
-    HBox sixthRow = new HBox(exportFriendsList, textF7, export);
+    vBoxL.setAlignment(Pos.CENTER);
+    vBoxC.setSpacing(20.0);
+    
+    vBoxC.setAlignment(Pos.CENTER);
+    
+    vBoxR.setSpacing(15.0);
 
-    HBox seventhRow = new HBox(addFriendsLabel, textAF, textAF1, addFriend);
-
-    HBox eightRow = new HBox(removeFriendshipLabel, textRFL, textRFL1, removeFriendship);
-
-    HBox buttons = new HBox(removeAll, displayNetwork);
-
-
-
-    buttons.setSpacing(5.0);
-
-    buttons.setAlignment(Pos.CENTER);
-
-
-    VBox VerticalBox = new VBox(firstRow, secondRow, thirdRow,
-
-        fourthRow, fifthRow, sixthRow, seventhRow, eightRow, buttons);
-
-    VerticalBox.setSpacing(20.0);
-
-    VerticalBox.setAlignment(Pos.CENTER);
-
-
-    firstRow.setSpacing(5.0);
-
-    firstRow.setAlignment(Pos.CENTER);
-
-
-    secondRow.setSpacing(5.0);
-
-    secondRow.setAlignment(Pos.CENTER);
-
-
-    thirdRow.setSpacing(5.0);
-
-    thirdRow.setAlignment(Pos.CENTER);
-
-
-    fourthRow.setSpacing(5.0);
-
-    fourthRow.setAlignment(Pos.CENTER);
-
-
-    fifthRow.setSpacing(5.0);
-
-    fifthRow.setAlignment(Pos.CENTER);
+    vBoxR.setAlignment(Pos.CENTER);
 
 
-    sixthRow.setSpacing(5.0);
+    firstRowL.setSpacing(7.0);
 
-    sixthRow.setAlignment(Pos.CENTER);
+    firstRowL.setAlignment(Pos.CENTER);
 
-    seventhRow.setSpacing(5.0);
+    firstRowC.setSpacing(5.0);
 
-    seventhRow.setAlignment(Pos.CENTER);
+    firstRowC.setAlignment(Pos.CENTER);
+    
+    firstRowR.setSpacing(5.0);
 
-    eightRow.setSpacing(5.0);
+    firstRowR.setAlignment(Pos.CENTER);
 
-    eightRow.setAlignment(Pos.CENTER);
+    secondRowL.setSpacing(7.0);
 
+    secondRowL.setAlignment(Pos.CENTER);
+    
+    secondRowC.setSpacing(5.0);
+
+    secondRowC.setAlignment(Pos.CENTER);
+    
+    secondRowR.setSpacing(5.0);
+
+    secondRowR.setAlignment(Pos.CENTER);
+
+
+    thirdRowL.setSpacing(7.0);
+
+    thirdRowL.setAlignment(Pos.CENTER);
+    
+    thirdRowC.setSpacing(5.0);
+
+    thirdRowC.setAlignment(Pos.CENTER);
+    
+    thirdRowR.setSpacing(5.0);
+
+    thirdRowR.setAlignment(Pos.CENTER);
+
+
+    fourthRowL.setSpacing(7.0);
+
+    fourthRowL.setAlignment(Pos.CENTER);
+
+    fourthRowC.setSpacing(5.0);
+
+    fourthRowC.setAlignment(Pos.CENTER);
+    
+    fourthRowR.setSpacing(5.0);
+
+    fourthRowR.setAlignment(Pos.CENTER);
+
+    
+    fifthRowL.setSpacing(7.0);
+
+    fifthRowL.setAlignment(Pos.CENTER);
+    
+    fifthRowC.setSpacing(5.0);
+
+    fifthRowC.setAlignment(Pos.CENTER);
+    
+    fifthRowR.setSpacing(5.0);
+
+    fifthRowR.setAlignment(Pos.CENTER);
+
+
+    sixthRowL.setSpacing(7.0);
+
+    sixthRowL.setAlignment(Pos.CENTER);
+    
+    sixthRowC.setSpacing(5.0);
+
+    sixthRowC.setAlignment(Pos.CENTER);
+    
+    sixthRowR.setSpacing(5.0);
+
+    sixthRowR.setAlignment(Pos.CENTER);
+    
+    seventhRowL.setSpacing(7.0);
+
+    seventhRowL.setAlignment(Pos.CENTER);
+    
+    seventhRowC.setSpacing(5.0);
+
+    seventhRowC.setAlignment(Pos.CENTER);
+    
+    seventhRowR.setSpacing(5.0);
+
+    seventhRowR.setAlignment(Pos.CENTER);
+    
+    eightRowL.setSpacing(7.0);
+
+    eightRowL.setAlignment(Pos.CENTER);
+
+    eightRowC.setSpacing(5.0);
+
+    eightRowC.setAlignment(Pos.CENTER);
+
+    eightRowR.setSpacing(5.0);
+
+    eightRowR.setAlignment(Pos.CENTER);
+    
+    tempLabel.setSpacing(2.0);
+
+    tempLabel.setAlignment(Pos.CENTER);
+    
+    center.setSpacing(5.0);
+
+    center.setAlignment(Pos.CENTER);
+    
     BorderPane lowerPane3 = new BorderPane();
     Button exitButton3 = new Button("Exit");
 
@@ -1001,48 +1115,43 @@ public class Main extends Application {
         "-fx-max-width: 100px; " +
 
         "-fx-max-height: 100px; -fx-text-fill: yellow; -fx-font: 17 arial;");
-
+    
     exitButton3.setAlignment(Pos.CENTER);
-
+    
     exitButton3.setOnAction(e -> {
       BorderPane shutDown = new BorderPane();
-      String message;
-      if (textF7.getText().equals("enter file name") || textF7.getText().equals("")
-          || friendNetwork.txtFileName.equals("")) {
-        message = "Hope you enjoyed using The Social Network.";
-      } else {
-        message = "Your commands were saved in the file: " + friendNetwork.txtFileName
-            + "\nHope you enjoyed using The Social Network.";
-      }
-      HBox fRow = new HBox(new Label(message));
+      HBox fRow = new HBox(new Label("Hope you enjoyed using The Social Network."));
       HBox sRow = new HBox(new Label("See you again!"));
+      
+      VBox vBox = new VBox(fRow,sRow);
+        
+        vBox.setSpacing(20.0);
 
-      VBox vBox = new VBox(fRow, sRow);
-
-      vBox.setSpacing(20.0);
-
-      vBox.setAlignment(Pos.CENTER);
+        vBox.setAlignment(Pos.CENTER);
 
 
-      fRow.setSpacing(5.0);
+        fRow.setSpacing(5.0);
 
-      fRow.setAlignment(Pos.CENTER);
+        fRow.setAlignment(Pos.CENTER);
+        
+        sRow.setSpacing(5.0);
 
-      sRow.setSpacing(5.0);
-
-      sRow.setAlignment(Pos.CENTER);
-
-      shutDown.setCenter(vBox);
-      Scene sceneAdd = new Scene(shutDown, 400, 200);
-      primaryStage.setScene(sceneAdd);
-      primaryStage.show();
-
+        sRow.setAlignment(Pos.CENTER);
+        
+     shutDown.setCenter(vBox);
+     Scene sceneAdd = new Scene(shutDown,300,150);
+     primaryStage.setScene(sceneAdd);
+     primaryStage.show();
     });
-
     lowerPane3.setRight(exitButton3);
+    lowerPane3.setCenter(center);
+    borderPane3.setCenter(vBoxC);
+    borderPane3.setLeft(vBoxL);
+    borderPane3.setRight(vBoxR);
+   //borderPane3.setCenter(center);
 
-    borderPane3.setCenter(VerticalBox);
     borderPane3.setBottom(lowerPane3);
+
 
 
     removeAll.setAlignment(Pos.BASELINE_CENTER);
