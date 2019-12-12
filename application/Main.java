@@ -3,7 +3,7 @@
 // DESCRIPTION: Making a GUI for the social network using javaFX
 /////////////////////////////////////////////////////////////////////////////////
 
-package Application;
+package application;
 
 
 import java.io.File;
