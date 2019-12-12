@@ -191,9 +191,9 @@ public class Main extends Application {
 
     TextField textF2 = new TextField("type username here");
 
-    TextField textF3 = new TextField("type username 1 here");
+    TextField textF3 = new TextField("enter username 1 here");
 
-    TextField textF4 = new TextField("type username 2 here");
+    TextField textF4 = new TextField("enter username 2 here");
 
     TextField textF5 = new TextField("type username here");
 
@@ -229,12 +229,15 @@ public class Main extends Application {
 
     textF1.setStyle("-fx-text-fill: black; -fx-font: 15 arial;");
     textF2.setStyle("-fx-text-fill: black; -fx-font: 15 arial;");
-    textF3.setStyle("-fx-text-fill: black; -fx-font: 15 arial;");
-    textF4.setStyle("-fx-text-fill: black; -fx-font: 15 arial;");
+    textF3.setStyle("-fx-text-fill: black; -fx-font: 13 arial;");
+    textF4.setStyle("-fx-text-fill: black; -fx-font: 13 arial;");
     textF5.setStyle("-fx-text-fill: black; -fx-font: 15 arial;");
     textF6.setStyle("-fx-text-fill: black; -fx-font: 15 arial;");
     textF7.setStyle("-fx-text-fill: black; -fx-font: 15 arial;");
     textDispGraph.setStyle("-fx-text-fill: black; -fx-font: 12 arial;");
+    textRFL.setStyle("-fx-text-fill: black; -fx-font: 13 arial;");
+    textRFL1.setStyle("-fx-text-fill: black; -fx-font: 13 arial;");
+
 
     Label addUserName = new Label("Add username");
 
@@ -296,10 +299,10 @@ public class Main extends Application {
     display.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
     addFriend.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
     export.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
-    displayNetwork.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
-    removeAll.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
+    displayNetwork.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
+    removeAll.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
     goBackToScene2.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
-    removeFriendship.setStyle("-fx-text-fill: black; -fx-font: 19 arial;");
+    removeFriendship.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
     displayGraph.setStyle("-fx-text-fill: black; -fx-font: 10 arial;");
 
     Stage secondaryStage = new Stage();
