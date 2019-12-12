@@ -14,7 +14,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 // imported for the collections
@@ -54,9 +53,9 @@ import javafx.scene.layout.CornerRadii;
 
 
 
-public class Main extends Application  {
-  
-  //yeah
+public class Main extends Application {
+
+  // yeah
 
   // store any command-line arguments that were entered.
 
@@ -73,97 +72,97 @@ public class Main extends Application  {
   private static final String APP_TITLE = "THE SOCIAL NETWORK";
 
 
-  private void DispNetwork (String ce, Graph graphType, Stage stage) {
-    Graph tempGraph=new Graph();
-    tempGraph=graphType;
+  private void DispNetwork(String ce, Graph graphType, Stage stage) {
+    Graph tempGraph = new Graph();
+    tempGraph = graphType;
     StackPane root = new StackPane();
-    Set<Person>connects=new HashSet<Person>();
+    Set<Person> connects = new HashSet<Person>();
     try {
-      connects=graphType.getNeighbours(tempGraph.getNode(ce));
+      connects = graphType.getNeighbours(tempGraph.getNode(ce));
     } catch (Exception e1) {
     }
-    System.out.println(ce+" total number of nodes "+tempGraph.getAllNodes().size());
-    for (Person per: tempGraph.getAllNodes()) {
+    System.out.println(ce + " total number of nodes " + tempGraph.getAllNodes().size());
+    for (Person per : tempGraph.getAllNodes()) {
       System.out.println(per.getName());
     }
-    Button [] buttons = new Button[connects.size()];
-    HBox [] hBoxes = new HBox [buttons.length];
-  //  VBox [] vBoxes = new VBox [buttons.length];
-    VBox vbox2 = new VBox(buttons.length);        
+    Button[] buttons = new Button[connects.size()];
+    HBox[] hBoxes = new HBox[buttons.length];
+    // VBox [] vBoxes = new VBox [buttons.length];
+    VBox vbox2 = new VBox(buttons.length);
 
-    Iterator<Person> iter=connects.iterator();
+    Iterator<Person> iter = connects.iterator();
     BorderPane borderPane4view = new BorderPane();
-    for (int i=0;i<connects.size();i++) {
-      Person per=iter.next();
-      System.out.println("friend is "+per.getName());
-      buttons[i]=new Button (per.getName());
+    for (int i = 0; i < connects.size(); i++) {
+      Person per = iter.next();
+      System.out.println("friend is " + per.getName());
+      buttons[i] = new Button(per.getName());
       buttons[i].setStyle("-fx-text-fill: black; -fx-font: 10 arial;");
-      buttons[i].setOnAction (e -> {
-        DispNetwork(per.getName(), graphType, stage);         
-        });
-      hBoxes[i]=new HBox(buttons[i]);    
-      
+      buttons[i].setOnAction(e -> {
+        DispNetwork(per.getName(), graphType, stage);
+      });
+      hBoxes[i] = new HBox(buttons[i]);
+
       hBoxes[i].setSpacing(5.0);
-      
+
       hBoxes[i].setAlignment(Pos.CENTER);
       vbox2.getChildren().add(hBoxes[i]);
-   //   borderPane4view.setCenter(hBoxes[i]);
+      // borderPane4view.setCenter(hBoxes[i]);
     }
-    HBox displayName= new HBox (new Label("Showing all the friends of "+ce));
+    HBox displayName = new HBox(new Label("Showing all the friends of " + ce));
     displayName.setSpacing(5.0);
-    
+
     displayName.setAlignment(Pos.CENTER);
-    
+
     vbox2.getChildren().add(displayName);
-   
+
     root.getChildren().addAll(vbox2);
-    
-    Scene sceneAdd = new Scene(root,400,150);
+
+    Scene sceneAdd = new Scene(root, 400, 150);
     stage.setScene(sceneAdd);
     stage.show();
   }
-//  private void DispGraph (String input, Set<Graph> graph) {
-//    
-//  }
+
+
+
   private void dispGraph(TextField textDispGraph, Set<Graph> friends) {
     // TODO Auto-generated method stub
-    
-    String input=textDispGraph.getText();
-    input=input.trim();
-    char c=input.charAt(0);
-    int val=Character.getNumericValue(c);
-    Iterator<Graph> iter=friends.iterator();
-    Graph temp=new Graph();
 
-    for (int i=0;i<val;i++) {
+    String input = textDispGraph.getText();
+    input = input.trim();
+    char c = input.charAt(0);
+    int val = Character.getNumericValue(c);
+    Iterator<Graph> iter = friends.iterator();
+    Graph temp = new Graph();
+
+    for (int i = 0; i < val; i++) {
       if (iter.hasNext())
-      temp=(Graph)iter.next();
+        temp = (Graph) iter.next();
     }
-    Set<Person> persons=new HashSet<Person>();
-       persons= temp.getAllNodes();
-    Iterator <Person> iterator= persons.iterator();
-    Stage stage=new Stage();
-    int maxConnections=0;
-    Person toReturn=null;
-    while(iterator.hasNext()) {
-    Person ce=(Person)iterator.next();
-    try {
-      if (temp.getNeighbours(temp.getNode(ce.getName())).size()>maxConnections) {
-        maxConnections=temp.getNeighbours(temp.getNode(ce.getName())).size();
-        toReturn=ce;
+    Set<Person> persons = new HashSet<Person>();
+    persons = temp.getAllNodes();
+    Iterator<Person> iterator = persons.iterator();
+    Stage stage = new Stage();
+    int maxConnections = 0;
+    Person toReturn = null;
+    while (iterator.hasNext()) {
+      Person ce = (Person) iterator.next();
+      try {
+        if (temp.getNeighbours(temp.getNode(ce.getName())).size() > maxConnections) {
+          maxConnections = temp.getNeighbours(temp.getNode(ce.getName())).size();
+          toReturn = ce;
         }
-    } catch (Exception e) {
+      } catch (Exception e) {
+      }
+      System.out.println("Returned value for tree: " + toReturn.getName());
     }
-    System.out.println("Returned value for tree: "+toReturn.getName());
-    }
-    DispNetwork (toReturn.getName(), temp, stage);
+    DispNetwork(toReturn.getName(), temp, stage);
   }
+
   @Override
 
   public void start(Stage primaryStage) throws Exception {
 
     // save args example
-    int count=0;
 
     args = this.getParameters().getRaw();
 
@@ -186,7 +185,7 @@ public class Main extends Application  {
     args = this.getParameters().getRaw();
 
     SocialNetwork friendNetwork = new SocialNetwork();
-    
+
 
     TextField textF1 = new TextField("type username here");
 
@@ -200,33 +199,32 @@ public class Main extends Application  {
 
     TextField textF6 = new TextField("type username here");
 
-    TextField textF7 = new TextField("enter file name"); //Export text field
-    
+    TextField textF7 = new TextField("enter file name ");
+
     TextField textAF = new TextField("enter username");
 
     TextField textAF1 = new TextField("enter friend name ");
-    
+
     TextField textRFL = new TextField("enter username 1 here ");
-    
+
     TextField textRFL1 = new TextField("enter username 2 here ");
-    
+
     TextField textDispGraph = new TextField("enter your option here ");
 
-    
-    
+
 
     BorderPane borderPane4 = new BorderPane();
     Button friend1 = new Button();
     Button friend2 = new Button();
     borderPane4.setCenter(friend1);
     Scene finalScene = new Scene(borderPane4, WINDOW_WIDTH, WINDOW_HEIGHT);
-    Button goBackToScene2 = new Button ("Go back to options");
-    goBackToScene2.setOnAction (e -> {
-	primaryStage.setScene(Scene1);
+    Button goBackToScene2 = new Button("Go back to options");
+    goBackToScene2.setOnAction(e -> {
+      primaryStage.setScene(Scene1);
     });
     goBackToScene2.setAlignment(Pos.CENTER);
     BorderPane lowerPaneFinal = new BorderPane();
-   lowerPaneFinal.setRight(goBackToScene2);
+    lowerPaneFinal.setRight(goBackToScene2);
 
 
     textF1.setStyle("-fx-text-fill: black; -fx-font: 15 arial;");
@@ -249,12 +247,12 @@ public class Main extends Application  {
     Label displayConnections = new Label("Display connections");
 
     Label exportFriendsList = new Label("Export friends list");
-    
-    Label addFriendsLabel = new Label ("Add friends");
-    
-    Label removeFriendshipLabel = new Label ("Remove friendship");
-    
-    Label displayBox = new Label ("Choose a graph\n to display");
+
+    Label addFriendsLabel = new Label("Add friends");
+
+    Label removeFriendshipLabel = new Label("Remove friendship");
+
+    Label displayBox = new Label("Choose a graph\n to display");
 
     addUserName.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
     removeUser.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
@@ -264,7 +262,7 @@ public class Main extends Application  {
     exportFriendsList.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
     addFriendsLabel.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
     removeFriendshipLabel.setStyle("-fx-text-fill: white; -fx-font: 17 arial;");
-   displayBox.setStyle("-fx-text-fill: black; -fx-font: 10 arial;");
+    displayBox.setStyle("-fx-text-fill: black; -fx-font: 10 arial;");
 
 
     Button add = new Button("add");
@@ -278,18 +276,18 @@ public class Main extends Application  {
     Button display = new Button("display");
 
     Button export = new Button("export");
-    
-    Button addFriend = new Button ("Add Friend");
+
+    Button addFriend = new Button("Add Friend");
 
     Button displayNetwork = new Button("DISPLAY NETWORK");
 
     Button removeAll = new Button("REMOVE ALL USERS");
-    
-    Button removeFriendship = new Button ("Remove Friendship");
-    
+
+    Button removeFriendship = new Button("Remove Friendship");
+
     Button displayGraph = new Button("display graph");
-    
-    
+
+
 
     add.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
     remove.setStyle("-fx-text-fill: black; -fx-font: 17 arial;");
@@ -303,32 +301,26 @@ public class Main extends Application  {
     goBackToScene2.setStyle("-fx-text-fill: black; -fx-font: 20 arial;");
     removeFriendship.setStyle("-fx-text-fill: black; -fx-font: 19 arial;");
     displayGraph.setStyle("-fx-text-fill: black; -fx-font: 10 arial;");
-    
-    Stage secondaryStage=new Stage();
-    
-    Stage tertiaryStage= new Stage();
-        
-    export.setOnAction(e->{
-      File saveFile = new File(textF7.getText().trim());
-      friendNetwork.savetoFile(saveFile);
-    });
-    
-    
-    
-    
-    
-    //ADDED THE EXCEPTION HANDLING POPOUP BOX, WILL SHOW IF THE NAME FIELD IS EMPTY OR DUPLICATE NAME USER ADDED
+
+    Stage secondaryStage = new Stage();
+
+    Stage tertiaryStage = new Stage();
+
+
+
+    // ADDED THE EXCEPTION HANDLING POPOUP BOX, WILL SHOW IF THE NAME FIELD IS EMPTY OR DUPLICATE NAME USER
+    // ADDED
     add.setOnAction(e -> {
-      friend1.setText(textF1.getText());  
+      friend1.setText(textF1.getText());
       boolean added = friendNetwork.addUser(textF1.getText());
-      //if the friend was not added, exception thrown or whatever
-   if(!added) {
-     //pop-up window for the user
-     BorderPane borderPane4add = new BorderPane();
-     HBox firstRow = new HBox(new Label("Error: Unable to add the user."));
-     
-     VBox VerticalBox = new VBox(firstRow);
-        
+      // if the friend was not added, exception thrown or whatever
+      if (!added) {
+        // pop-up window for the user
+        BorderPane borderPane4add = new BorderPane();
+        HBox firstRow = new HBox(new Label("Error: Unable to add the user."));
+
+        VBox VerticalBox = new VBox(firstRow);
+
         VerticalBox.setSpacing(20.0);
 
         VerticalBox.setAlignment(Pos.CENTER);
@@ -337,19 +329,18 @@ public class Main extends Application  {
         firstRow.setSpacing(5.0);
 
         firstRow.setAlignment(Pos.CENTER);
-        
-     borderPane4add.setCenter(VerticalBox);
-     Scene sceneAdd = new Scene(borderPane4add,300,150);
-     tertiaryStage.setScene(sceneAdd);
-     tertiaryStage.show();
-   }
-   else {
-     //pop-up window for the user
-     BorderPane borderPane4add = new BorderPane();
-     HBox firstRow = new HBox(new Label("Added "+textF1.getText()+" to the Social Network"));
-     
-     VBox VerticalBox = new VBox(firstRow);
-        
+
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+      } else {
+        // pop-up window for the user
+        BorderPane borderPane4add = new BorderPane();
+        HBox firstRow = new HBox(new Label("Added " + textF1.getText() + " to the Social Network"));
+
+        VBox VerticalBox = new VBox(firstRow);
+
         VerticalBox.setSpacing(20.0);
 
         VerticalBox.setAlignment(Pos.CENTER);
@@ -358,408 +349,132 @@ public class Main extends Application  {
         firstRow.setSpacing(5.0);
 
         firstRow.setAlignment(Pos.CENTER);
-        
-     borderPane4add.setCenter(VerticalBox);
-     Scene sceneAdd = new Scene(borderPane4add,300,150);
-     tertiaryStage.setScene(sceneAdd);
-     tertiaryStage.show();
-   }
-    });
 
-    
-    
-    
-    
-    
-    
-    
-    export.setOnAction(e -> {
-      
-      friend1.setText(textF7.getText());   
-      File f1= new File(textF7.getText()+".txt");
-      friendNetwork.txtFileName=textF7.getText();
-      friendNetwork.savetoFile(f1);
-    //pop-up window for the user
-      BorderPane borderPane4add = new BorderPane();
-      HBox firstRow = new HBox(new Label("Exported data to "+textF7.getText()+" text file"));
-      
-      VBox VerticalBox = new VBox(firstRow);
-         
-         VerticalBox.setSpacing(20.0);
-
-         VerticalBox.setAlignment(Pos.CENTER);
-
-
-         firstRow.setSpacing(5.0);
-
-         firstRow.setAlignment(Pos.CENTER);
-         
-      borderPane4add.setCenter(VerticalBox);
-      Scene sceneAdd = new Scene(borderPane4add,300,150);
-      tertiaryStage.setScene(sceneAdd);
-      tertiaryStage.show();
-    });
-    
-    
-    
-    
-    
-    
-    
-    
-    //ADDED THE ALERT BOX FOR REMOVING THE USER : WOULD HAPPEN IF NO NAME OR THE USER DOES NOT EXIST
-    remove.setOnAction(e -> {
-	friend1.setText(textF2.getText()); 
-	boolean removed = friendNetwork.removeUser(textF2.getText());
-	
-	if(!removed) {
-	//pop-up window for the user
-	    BorderPane borderPane4add = new BorderPane();
-	    HBox firstRow = new HBox(new Label("Unable to remove the user."));
-	    VBox VerticalBox = new VBox(firstRow);  
-	       VerticalBox.setSpacing(20.0);
-	       VerticalBox.setAlignment(Pos.CENTER);
-	       firstRow.setSpacing(5.0);
-
-	       firstRow.setAlignment(Pos.CENTER);
-	    borderPane4add.setCenter(VerticalBox);
-	    Scene sceneAdd = new Scene(borderPane4add,300,150);
-	    tertiaryStage.setScene(sceneAdd);
-	    tertiaryStage.show();
-	    //primaryStage.setScene(finalScene);
-	}
-	else {
-	//pop-up window for the user
-	    BorderPane borderPane4add = new BorderPane();
-	    HBox firstRow = new HBox(new Label("Removed "+textF2.getText()+" from the Social Network"));
-	    HBox secondRow = new HBox(new Label("Hope to see you again"));
-	    
-	    
-	    VBox VerticalBox = new VBox(firstRow, secondRow);
-	       
-	       VerticalBox.setSpacing(20.0);
-
-	       VerticalBox.setAlignment(Pos.CENTER);
-
-
-	       firstRow.setSpacing(5.0);
-
-	       firstRow.setAlignment(Pos.CENTER);
-	       
-	       secondRow.setSpacing(5.0);
-
-	       secondRow.setAlignment(Pos.CENTER);
-	       
-	    borderPane4add.setCenter(VerticalBox);
-	    Scene sceneAdd = new Scene(borderPane4add,300,150);
-	    tertiaryStage.setScene(sceneAdd);
-	    tertiaryStage.show();
-	    //primaryStage.setScene(finalScene);
-	}
-	
-    });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // //ADDED THE ALERT BOX FOR MUTUAL FRIENDS NOT THERE IF NO NAMES OR INVALID USERS OR SAME USER
-   lookUp.setOnAction(e -> {
-	friend1.setText(textF3.getText()); 
-	friend2.setText(textF4.getText()); 
-	Set<Person> friendsSet=friendNetwork.getMutualFriends(textF3.getText(), textF4.getText());;
-	
-	if(friendsSet == null) {
-	//pop-up window for the user
-      BorderPane borderPane4add = new BorderPane();
-      HBox firstRow = new HBox(new Label("Unable to display the mutual friends"));
-      VBox VerticalBox = new VBox(firstRow);  
-         VerticalBox.setSpacing(20.0);
-         VerticalBox.setAlignment(Pos.CENTER);
-         firstRow.setSpacing(5.0);
-
-         firstRow.setAlignment(Pos.CENTER);
-      borderPane4add.setCenter(VerticalBox);
-      Scene sceneAdd = new Scene(borderPane4add,300,150);
-      tertiaryStage.setScene(sceneAdd);
-      tertiaryStage.show();
-	}
-	else {
-	  String labelText="";
-	    if (friendsSet.size()!=0) {
-	    String[] temp=new String[friendsSet.size()];
-	    int i=0;
-	    for (Person per:friendsSet) {
-	      temp[i]=per.getName();
-	      i++;
-	    }
-	    labelText=textF3.getText()+" and "+textF4.getText()+" have the following mutual friend(s):\n";
-	    for (i=0;i<temp.length;i++) {
-	      labelText=labelText+temp[i]+"\n";
-	    }
-	    }
-	    if (friendsSet.size()==0) {
-	      labelText=textF3.getText()+" and "+textF4.getText()+" have no mutual friends.";
-	    }
-	    BorderPane borderPane4display = new BorderPane();
-	    
-	    HBox firstRow = new HBox(new Label(labelText));
-	    
-	    VBox VerticalBox = new VBox(firstRow);
-	       
-	       VerticalBox.setSpacing(20.0);
-
-	       VerticalBox.setAlignment(Pos.CENTER);
-
-
-	       firstRow.setSpacing(5.0);
-
-	       firstRow.setAlignment(Pos.CENTER);
-	       
-	       borderPane4display.setCenter(VerticalBox);
-	       
-	       Scene sceneSearch = new Scene(borderPane4display, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-	       secondaryStage.setScene(sceneSearch);
-	       
-	       secondaryStage.show();
-	       
-	     //pop-up window for the user
-	       BorderPane borderPane4add = new BorderPane();
-	       HBox row1 = new HBox(new Label("Looked for mutual friends of "+textF3.getText()+" and "+textF4.getText()));
-	       
-	       VBox vertBox = new VBox(row1);
-	          
-	          vertBox.setSpacing(20.0);
-
-	          vertBox.setAlignment(Pos.CENTER);
-
-
-	          row1.setSpacing(5.0);
-
-	          row1.setAlignment(Pos.CENTER);
-	          
-	       borderPane4add.setCenter(vertBox);
-	       Scene sceneAdd = new Scene(borderPane4add,300,150);
-	       tertiaryStage.setScene(sceneAdd);
-	       tertiaryStage.show();
-	} 
-    });
-  
-  
-   
-   
-   
-   
-   
-   
-   
-   //ADDED THE ALERT BOX IF THE USER NAME IS NOT ENTERED OR THERE IS NO SUCH USER
-  //Action set code for DISPLAY 
-  //Displays all the connections of a certain user
-  display.setOnAction(e -> {
-	friend1.setText(textF6.getText());
-	Set<Person> neighboursSet=friendNetwork.getFriends(textF6.getText());
-	
-	if(neighboursSet == null) {
-	//pop-up window for the user
-      BorderPane borderPane4add = new BorderPane();
-      HBox firstRow = new HBox(new Label("Unable to display connections"));
-      VBox VerticalBox = new VBox(firstRow);  
-         VerticalBox.setSpacing(20.0);
-         VerticalBox.setAlignment(Pos.CENTER);
-         firstRow.setSpacing(5.0);
-
-         firstRow.setAlignment(Pos.CENTER);
-      borderPane4add.setCenter(VerticalBox);
-      Scene sceneAdd = new Scene(borderPane4add,300,150);
-      tertiaryStage.setScene(sceneAdd);
-      tertiaryStage.show();
-	}
-	else {
-	  String labelText="";
-	    if (neighboursSet.size()!=0) {
-	    String[] temp=new String[neighboursSet.size()];
-	    int i=0;
-	    for (Person per:neighboursSet) {
-	      temp[i]=per.getName();
-	      i++;
-	    }
-	    labelText=textF6.getText()+" has the following connections:\n";
-	    for (i=0;i<temp.length;i++) {
-	      labelText=labelText+temp[i]+"\n";
-	    }
-	    }
-	    if (neighboursSet.size()==0) {
-	      labelText=textF6.getText()+" has no connections.";
-	    }
-	    BorderPane borderPane4display = new BorderPane();
-	    
-	    HBox firstRow = new HBox(new Label(labelText));
-	    
-	    VBox VerticalBox = new VBox(firstRow);
-	       
-	       VerticalBox.setSpacing(20.0);
-
-	       VerticalBox.setAlignment(Pos.CENTER);
-
-
-	       firstRow.setSpacing(5.0);
-
-	       firstRow.setAlignment(Pos.CENTER);
-	       
-	       borderPane4display.setCenter(VerticalBox);
-	       
-	       Scene sceneSearch = new Scene(borderPane4display, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-	       secondaryStage.setScene(sceneSearch);
-	       
-	       secondaryStage.show();
-	}
-   });
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  //ADDED THE ALERT BOX IF THE USER NAME IS NOT VALID OR THERE IS SELF EDGE
-  addFriend.setOnAction(e -> {
-      	friend1.setText(textAF.getText()); 
-	friend2.setText(textAF1.getText()); 
-	boolean added = friendNetwork.addFriends(textAF.getText(), textAF1.getText());
-	if(!added) {
-	//pop-up window for the user
-	    BorderPane borderPane4add = new BorderPane();
-	    HBox firstRow = new HBox(new Label("Unable to add the users as friends"));
-	    
-	    VBox VerticalBox = new VBox(firstRow);
-	       
-	       VerticalBox.setSpacing(20.0);
-
-	       VerticalBox.setAlignment(Pos.CENTER);
-
-
-	       firstRow.setSpacing(5.0);
-
-	       firstRow.setAlignment(Pos.CENTER);
-	       
-	    borderPane4add.setCenter(VerticalBox);
-	    Scene sceneAdd = new Scene(borderPane4add,300,150);
-	    tertiaryStage.setScene(sceneAdd);
-	    tertiaryStage.show();
-	}
-	else {
-	//pop-up window for the user
-	    BorderPane borderPane4add = new BorderPane();
-	    HBox firstRow = new HBox(new Label("Added "+textAF.getText()+" and "+textAF1.getText()+" as friends."));
-	    
-	    VBox VerticalBox = new VBox(firstRow);
-	       
-	       VerticalBox.setSpacing(20.0);
-
-	       VerticalBox.setAlignment(Pos.CENTER);
-
-
-	       firstRow.setSpacing(5.0);
-
-	       firstRow.setAlignment(Pos.CENTER);
-	       
-	    borderPane4add.setCenter(VerticalBox);
-	    Scene sceneAdd = new Scene(borderPane4add,300,150);
-	    tertiaryStage.setScene(sceneAdd);
-	    tertiaryStage.show();
-	}
-	
- });
-  
-  
-  
-  
-  
-  
- //ADDED THE ALERT BOX FOR NO GRAPH EXISTING
-  removeAll.setOnAction(e -> {
-    Set<Person> usersSet=friendNetwork.getGraph().getAllNodes();
-    
-    if(usersSet.size() == 0) {
-    //pop-up window for the user
-      BorderPane borderPane4add = new BorderPane();
-      HBox firstRow = new HBox(new Label("No users exist in the social network"));
-      
-      VBox VerticalBox = new VBox(firstRow);
-         
-         VerticalBox.setSpacing(20.0);
-
-         VerticalBox.setAlignment(Pos.CENTER);
-
-
-         firstRow.setSpacing(5.0);
-
-         firstRow.setAlignment(Pos.CENTER);
-         
-      borderPane4add.setCenter(VerticalBox);
-      Scene sceneAdd = new Scene(borderPane4add,300,150);
-      tertiaryStage.setScene(sceneAdd);
-      tertiaryStage.show(); 
-    }
-    else {
-      for (Person per: usersSet) {
-        friendNetwork.removeUser(per.getName());
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
       }
-    //pop-up window for the user
+    });
+
+
+
+    export.setOnAction(e -> {
+
+      friend1.setText(textF7.getText());
+      File f1 = new File(textF7.getText() + ".txt");
+      friendNetwork.txtFileName = textF7.getText();
+      friendNetwork.savetoFile(f1);
+      // pop-up window for the user
       BorderPane borderPane4add = new BorderPane();
-      HBox firstRow = new HBox(new Label("Removed all users from the Social Network"));
-      
+      HBox firstRow = new HBox(new Label("Exported data to " + textF7.getText() + " text file"));
+
       VBox VerticalBox = new VBox(firstRow);
-         
-         VerticalBox.setSpacing(20.0);
 
-         VerticalBox.setAlignment(Pos.CENTER);
+      VerticalBox.setSpacing(20.0);
+
+      VerticalBox.setAlignment(Pos.CENTER);
 
 
-         firstRow.setSpacing(5.0);
+      firstRow.setSpacing(5.0);
 
-         firstRow.setAlignment(Pos.CENTER);
-         
+      firstRow.setAlignment(Pos.CENTER);
+
       borderPane4add.setCenter(VerticalBox);
-      Scene sceneAdd = new Scene(borderPane4add,300,150);
+      Scene sceneAdd = new Scene(borderPane4add, 300, 150);
       tertiaryStage.setScene(sceneAdd);
-      tertiaryStage.show();  
-    }
-  });
-  
-  
-  
-  
-  
-  //ADDED THE ALERT BOX IF THE USER IS NPN EXISTENT
-  //ACTION button for SEARCH BOX in Social Network Screen
-  //i.e., screen 3
-  //This sets the vertical box and the horizontal box. Then opens a new screen with
-  //a new Border Pane
-  search.setOnAction(e -> {
-   friend1.setText(textF5.getText()); 
-   Person temp=friendNetwork.getUser(textF5.getText());
-   
-   if(temp == null) {
-     BorderPane borderPane4add = new BorderPane();
-     HBox firstRow = new HBox(new Label("No such user exists"));
-     
-     VBox VerticalBox = new VBox(firstRow);
-        
+      tertiaryStage.show();
+    });
+
+
+
+    // ADDED THE ALERT BOX FOR REMOVING THE USER : WOULD HAPPEN IF NO NAME OR THE USER DOES NOT EXIST
+    remove.setOnAction(e -> {
+      friend1.setText(textF2.getText());
+      boolean removed = friendNetwork.removeUser(textF2.getText());
+
+      if (!removed) {
+        // pop-up window for the user
+        BorderPane borderPane4add = new BorderPane();
+        HBox firstRow = new HBox(new Label("Unable to remove the user."));
+        VBox VerticalBox = new VBox(firstRow);
+        VerticalBox.setSpacing(20.0);
+        VerticalBox.setAlignment(Pos.CENTER);
+        firstRow.setSpacing(5.0);
+
+        firstRow.setAlignment(Pos.CENTER);
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+        // primaryStage.setScene(finalScene);
+      } else {
+        // pop-up window for the user
+        BorderPane borderPane4add = new BorderPane();
+        HBox firstRow =
+            new HBox(new Label("Removed " + textF2.getText() + " from the Social Network"));
+        HBox secondRow = new HBox(new Label("Hope to see you again"));
+        VBox VerticalBox = new VBox(firstRow, secondRow);
+        VerticalBox.setSpacing(20.0);
+        VerticalBox.setAlignment(Pos.CENTER);
+        firstRow.setSpacing(5.0);
+        firstRow.setAlignment(Pos.CENTER);
+        secondRow.setSpacing(5.0);
+        secondRow.setAlignment(Pos.CENTER);
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+        // primaryStage.setScene(finalScene);
+      }
+    });
+
+
+
+    // //ADDED THE ALERT BOX FOR MUTUAL FRIENDS NOT THERE IF NO NAMES OR INVALID USERS OR SAME USER
+    lookUp.setOnAction(e -> {
+      friend1.setText(textF3.getText());
+      friend2.setText(textF4.getText());
+
+      Set<Person> friendsSet = friendNetwork.getMutualFriends(textF3.getText(), textF4.getText());;
+      if (friendsSet == null) {
+        // pop-up window for the user
+        BorderPane borderPane4add = new BorderPane();
+        HBox firstRow = new HBox(new Label("Unable to display the mutual friends"));
+        VBox VerticalBox = new VBox(firstRow);
+        VerticalBox.setSpacing(20.0);
+        VerticalBox.setAlignment(Pos.CENTER);
+        firstRow.setSpacing(5.0);
+
+        firstRow.setAlignment(Pos.CENTER);
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+      } else {
+        String labelText = "";
+        if (friendsSet.size() != 0) {
+          String[] temp = new String[friendsSet.size()];
+          int i = 0;
+          for (Person per : friendsSet) {
+            temp[i] = per.getName();
+            i++;
+          }
+          labelText = textF3.getText() + " and " + textF4.getText()
+              + " have the following mutual friend(s):\n";
+          for (i = 0; i < temp.length; i++) {
+            labelText = labelText + temp[i] + "\n";
+          }
+        }
+        if (friendsSet.size() == 0) {
+          labelText = textF3.getText() + " and " + textF4.getText() + " have no mutual friends.";
+        }
+        BorderPane borderPane4display = new BorderPane();
+
+        HBox firstRow = new HBox(new Label(labelText));
+
+        VBox VerticalBox = new VBox(firstRow);
+
         VerticalBox.setSpacing(20.0);
 
         VerticalBox.setAlignment(Pos.CENTER);
@@ -768,64 +483,84 @@ public class Main extends Application  {
         firstRow.setSpacing(5.0);
 
         firstRow.setAlignment(Pos.CENTER);
-        
-     borderPane4add.setCenter(VerticalBox);
-     Scene sceneAdd = new Scene(borderPane4add,300,150);
-     tertiaryStage.setScene(sceneAdd);
-     tertiaryStage.show(); 
-   }
-   else {
-     
-     BorderPane borderPane4search = new BorderPane();
-     
-     HBox firstRow = new HBox(new Label("User details are:"), new Label(textF5.getText()));
-     //after the work on Get Connections is done:
-     //this should be in the bracket
-     //""+friendNetwork.getFriends(friend1.getText()).size() 
-     int numFriends=0;
-     if (!(friendNetwork.getFriends(textF5.getText())==null)) {
-       numFriends=friendNetwork.getFriends(temp.getName()).size();
-     }
-     HBox secondRow = new HBox(new Label("Number of connections of " + friend1.getText()+":"), new Label(""+ numFriends));
-     VBox VerticalBox = new VBox(firstRow, secondRow);
-     
-     VerticalBox.setSpacing(20.0);
 
-     VerticalBox.setAlignment(Pos.CENTER);
+        borderPane4display.setCenter(VerticalBox);
+
+        Scene sceneSearch = new Scene(borderPane4display, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+        secondaryStage.setScene(sceneSearch);
+
+        secondaryStage.show();
+
+        // pop-up window for the user
+        BorderPane borderPane4add = new BorderPane();
+        HBox row1 = new HBox(new Label(
+            "Looked for mutual friends of " + textF3.getText() + " and " + textF4.getText()));
+
+        VBox vertBox = new VBox(row1);
+
+        vertBox.setSpacing(20.0);
+
+        vertBox.setAlignment(Pos.CENTER);
 
 
-     firstRow.setSpacing(5.0);
+        row1.setSpacing(5.0);
 
-     firstRow.setAlignment(Pos.CENTER);
+        row1.setAlignment(Pos.CENTER);
 
-
-     secondRow.setSpacing(5.0);
-
-     secondRow.setAlignment(Pos.CENTER);
-    
-     
-     Button loadButton = new Button("LOAD");
-     loadButton.setStyle("-fx-font: 28 arial;");
-
-     
-
-//     });
-
-     borderPane4search.setCenter(VerticalBox);
-     
-     Scene sceneSearch = new Scene(borderPane4search, WINDOW_WIDTH, WINDOW_HEIGHT);
+        borderPane4add.setCenter(vertBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+      }
+    });
 
 
-     secondaryStage.setScene(sceneSearch);
-     
-     secondaryStage.show();
-     
-   //pop-up window for the user
-     BorderPane borderPane4add = new BorderPane();
-      firstRow = new HBox(new Label("Searched for "+ textF5.getText()+" in the Social Network"));
-      
-      VerticalBox = new VBox(firstRow);
-        
+
+    // ADDED THE ALERT BOX IF THE USER NAME IS NOT ENTERED OR THERE IS NO SUCH USER
+    // Action set code for DISPLAY
+    // Displays all the connections of a certain user
+    display.setOnAction(e -> {
+      friend1.setText(textF6.getText());
+      Set<Person> neighboursSet = friendNetwork.getFriends(textF6.getText());
+
+      if (neighboursSet == null) {
+        // pop-up window for the user
+        BorderPane borderPane4add = new BorderPane();
+        HBox firstRow = new HBox(new Label("Unable to display connections"));
+        VBox VerticalBox = new VBox(firstRow);
+        VerticalBox.setSpacing(20.0);
+        VerticalBox.setAlignment(Pos.CENTER);
+        firstRow.setSpacing(5.0);
+
+        firstRow.setAlignment(Pos.CENTER);
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+      } else {
+        String labelText = "";
+        if (neighboursSet.size() != 0) {
+          String[] temp = new String[neighboursSet.size()];
+          int i = 0;
+          for (Person per : neighboursSet) {
+            temp[i] = per.getName();
+            i++;
+          }
+          labelText = textF6.getText() + " has the following connections:\n";
+          for (i = 0; i < temp.length; i++) {
+            labelText = labelText + temp[i] + "\n";
+          }
+        }
+        if (neighboursSet.size() == 0) {
+          labelText = textF6.getText() + " has no connections.";
+        }
+        BorderPane borderPane4display = new BorderPane();
+
+        HBox firstRow = new HBox(new Label(labelText));
+
+        VBox VerticalBox = new VBox(firstRow);
+
         VerticalBox.setSpacing(20.0);
 
         VerticalBox.setAlignment(Pos.CENTER);
@@ -834,168 +569,343 @@ public class Main extends Application  {
         firstRow.setSpacing(5.0);
 
         firstRow.setAlignment(Pos.CENTER);
-        
-     borderPane4add.setCenter(VerticalBox);
-     Scene sceneAdd = new Scene(borderPane4add,300,150);
-     tertiaryStage.setScene(sceneAdd);
-     tertiaryStage.show();
-   }
+
+        borderPane4display.setCenter(VerticalBox);
+
+        Scene sceneSearch = new Scene(borderPane4display, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+        secondaryStage.setScene(sceneSearch);
+
+        secondaryStage.show();
+      }
+    });
+
+
+
+    // ADDED THE ALERT BOX IF THE USER NAME IS NOT VALID OR THERE IS SELF EDGE
+    addFriend.setOnAction(e -> {
+      friend1.setText(textAF.getText());
+      friend2.setText(textAF1.getText());
+      boolean added = friendNetwork.addFriends(textAF.getText(), textAF1.getText());
+      if (!added) {
+        // pop-up window for the user
+        BorderPane borderPane4add = new BorderPane();
+        HBox firstRow = new HBox(new Label("Unable to add the users as friends"));
+
+        VBox VerticalBox = new VBox(firstRow);
+
+        VerticalBox.setSpacing(20.0);
+
+        VerticalBox.setAlignment(Pos.CENTER);
+
+
+        firstRow.setSpacing(5.0);
+
+        firstRow.setAlignment(Pos.CENTER);
+
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+      } else {
+        // pop-up window for the user
+        BorderPane borderPane4add = new BorderPane();
+        HBox firstRow = new HBox(
+            new Label("Added " + textAF.getText() + " and " + textAF1.getText() + " as friends."));
+
+        VBox VerticalBox = new VBox(firstRow);
+
+        VerticalBox.setSpacing(20.0);
+
+        VerticalBox.setAlignment(Pos.CENTER);
+
+
+        firstRow.setSpacing(5.0);
+
+        firstRow.setAlignment(Pos.CENTER);
+
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+      }
 
     });
-    
-
- 
-  
-  //ADDED THE ALERT BOX IF THERE AR ENO GRAPHS TO DISPLAY
-  displayNetwork.setOnAction(e -> {
-    Set<Graph> friends= friendNetwork.getConnectedComponents();
-    
-    //there is no graph to display
-    if(friends.size() == 0) {
-      
-      BorderPane borderPane4add = new BorderPane();
-      HBox firstRow = new HBox(new Label("No Graphs to display."));
-      
-      VBox VerticalBox = new VBox(firstRow);
-         
-         VerticalBox.setSpacing(20.0);
-
-         VerticalBox.setAlignment(Pos.CENTER);
 
 
-         firstRow.setSpacing(5.0);
 
-         firstRow.setAlignment(Pos.CENTER);
-         
-      borderPane4add.setCenter(VerticalBox);
-      Scene sceneAdd = new Scene(borderPane4add,300,150);
-      tertiaryStage.setScene(sceneAdd);
-      tertiaryStage.show(); 
-    }
-    else {
-      friend1.setText(textF6.getText()); 
-      friendNetwork.getFriends(textF6.getText());
-      BorderPane borderPane4connections = new BorderPane();
-      borderPane4connections.setCenter(friend1);
-      HBox firstOne= new HBox (new Label("Following are the connections in the graph. \n Pick one from the "
-          + "following for individual trees"));
-      //Set<Graph> friends= friendNetwork.getConnectedComponents(); 
-      displayGraph.setOnAction(m ->{  
-        dispGraph(textDispGraph,friends);
-      });
-      if (friends!=null) {
-      HBox [] horizontalBoxes =new HBox [friends.size()];
-      String textPerLine="";
-      Iterator<Graph> iter=friends.iterator();
-      
-      Graph graph=new Graph();
-      
-      BorderPane borderPane4view = new BorderPane();
-      
-      for (int i=0;i<friends.size();i++) {
-        textPerLine=textPerLine+(int)(i+1)+". ";
-        graph=(Graph)iter.next();
-        Set<Person> persons=graph.getAllNodes();
-        Iterator <Person> iterator= persons.iterator();
-        while (iterator.hasNext()) {
-        Person per=iterator.next();
-        textPerLine=textPerLine+per.getName()+" "; 
+    // ADDED THE ALERT BOX FOR NO GRAPH EXISTING
+    removeAll.setOnAction(e -> {
+      int size = friendNetwork.removeAllUsers();
+      if (size == 0) {
+        // pop-up window for the user
+        BorderPane borderPane4add = new BorderPane();
+        HBox firstRow = new HBox(new Label("The social network is empty."));
+
+        VBox VerticalBox = new VBox(firstRow);
+
+        VerticalBox.setSpacing(20.0);
+
+        VerticalBox.setAlignment(Pos.CENTER);
+
+
+        firstRow.setSpacing(5.0);
+
+        firstRow.setAlignment(Pos.CENTER);
+
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+      }
+    });
+
+
+
+    // ADDED THE ALERT BOX IF THE USER IS NPN EXISTENT
+    // ACTION button for SEARCH BOX in Social Network Screen
+    // i.e., screen 3
+    // This sets the vertical box and the horizontal box. Then opens a new screen with
+    // a new Border Pane
+    search.setOnAction(e -> {
+      friend1.setText(textF5.getText());
+      Person temp = friendNetwork.getUser(textF5.getText());
+      if (temp == null) {
+        BorderPane borderPane4add = new BorderPane();
+        HBox firstRow = new HBox(new Label("No such user exists"));
+
+        VBox VerticalBox = new VBox(firstRow);
+
+        VerticalBox.setSpacing(20.0);
+
+        VerticalBox.setAlignment(Pos.CENTER);
+
+
+        firstRow.setSpacing(5.0);
+
+        firstRow.setAlignment(Pos.CENTER);
+
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+      } else {
+
+        BorderPane borderPane4search = new BorderPane();
+
+        HBox firstRow = new HBox(new Label("User details are:"), new Label(textF5.getText()));
+        // after the work on Get Connections is done:
+        // this should be in the bracket
+        // ""+friendNetwork.getFriends(friend1.getText()).size()
+        int numFriends = 0;
+        if (!(friendNetwork.getFriends(textF5.getText()) == null)) {
+          numFriends = friendNetwork.getFriends(temp.getName()).size();
         }
-        horizontalBoxes[i]=new HBox( new Label (textPerLine));    
-        
-        horizontalBoxes[i].setSpacing(5.0);
-        
-        horizontalBoxes[i].setAlignment(Pos.CENTER);
-        
-        borderPane4view.setCenter(horizontalBoxes[i]);
-        
-        }
-      firstOne.setSpacing(5.0);
-      
-      HBox bottom = new HBox (displayBox,textDispGraph,displayGraph);
-      bottom.setSpacing(5.0);
-      
-      bottom.setAlignment(Pos.CENTER);
-      
-      firstOne.setAlignment(Pos.CENTER);
-      borderPane4view.setBottom(bottom);
-      borderPane4view.setTop(firstOne);
-      
-        Scene sceneAdd = new Scene(borderPane4view,400,150);
+        HBox secondRow = new HBox(new Label("Number of connections of " + friend1.getText() + ":"),
+            new Label("" + numFriends));
+        VBox VerticalBox = new VBox(firstRow, secondRow);
+
+        VerticalBox.setSpacing(20.0);
+
+        VerticalBox.setAlignment(Pos.CENTER);
+
+
+        firstRow.setSpacing(5.0);
+
+        firstRow.setAlignment(Pos.CENTER);
+
+
+        secondRow.setSpacing(5.0);
+
+        secondRow.setAlignment(Pos.CENTER);
+
+
+        Button loadButton = new Button("LOAD");
+        loadButton.setStyle("-fx-font: 28 arial;");
+
+        // loadButton.setOnAction(l -> {
+        //
+        // primaryStage.setScene(mainScene);
+        //
+        // });
+
+        borderPane4search.setCenter(VerticalBox);
+
+        Scene sceneSearch = new Scene(borderPane4search, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+
+        secondaryStage.setScene(sceneSearch);
+
+        secondaryStage.show();
+
+        // pop-up window for the user
+        BorderPane borderPane4add = new BorderPane();
+        firstRow =
+            new HBox(new Label("Searched for " + textF5.getText() + " in the Social Network"));
+
+        VerticalBox = new VBox(firstRow);
+
+        VerticalBox.setSpacing(20.0);
+
+        VerticalBox.setAlignment(Pos.CENTER);
+
+
+        firstRow.setSpacing(5.0);
+
+        firstRow.setAlignment(Pos.CENTER);
+
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+      }
+
+    });
+
+
+
+    // ADDED THE ALERT BOX IF THERE ARE NO GRAPHS TO DISPLAY
+    displayNetwork.setOnAction(e -> {
+      Set<Graph> friends = friendNetwork.getConnectedComponents();
+      Set<Graph> tempFriends = friends;
+      ///////
+
+
+      /////////////
+
+      // there is no graph to display
+      if (friends.size() == 0) {
+        BorderPane borderPane4add = new BorderPane();
+        HBox firstRow = new HBox(new Label("No Graphs to display."));
+
+        VBox VerticalBox = new VBox(firstRow);
+
+        VerticalBox.setSpacing(20.0);
+
+        VerticalBox.setAlignment(Pos.CENTER);
+
+
+        firstRow.setSpacing(5.0);
+
+        firstRow.setAlignment(Pos.CENTER);
+
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+      }
+
+      else {
+        friend1.setText(textF6.getText());
+        friendNetwork.getFriends(textF6.getText());
+        BorderPane borderPane4connections = new BorderPane();
+        borderPane4connections.setCenter(friend1);
+        HBox firstOne =
+            new HBox(new Label("Following are the connections in the graph. \n Pick one from the "
+                + "following for individual trees"));
+        // Set<Graph> friends= friendNetwork.getConnectedComponents();
+        displayGraph.setOnAction(m -> {
+          dispGraph(textDispGraph, tempFriends);
+        });
+        if (friends != null) {
+          HBox[] horizontalBoxes = new HBox[friends.size()];
+          String textPerLine = "";
+          Iterator<Graph> iter = friends.iterator();
+
+          Graph graph = new Graph();
+
+          BorderPane borderPane4view = new BorderPane();
+
+          for (int i = 0; i < friends.size(); i++) {
+            textPerLine = textPerLine + (int) (i + 1) + ". ";
+            graph = (Graph) iter.next();
+            Set<Person> persons = graph.getAllNodes();
+            Iterator<Person> iterator = persons.iterator();
+            while (iterator.hasNext()) {
+              Person per = iterator.next();
+              textPerLine = textPerLine + per.getName() + " ";
+            }
+            horizontalBoxes[i] = new HBox(new Label(textPerLine));
+
+            horizontalBoxes[i].setSpacing(5.0);
+
+            horizontalBoxes[i].setAlignment(Pos.CENTER);
+
+            borderPane4view.setCenter(horizontalBoxes[i]);
+
+          }
+          firstOne.setSpacing(5.0);
+
+          HBox bottom = new HBox(displayBox, textDispGraph, displayGraph);
+          bottom.setSpacing(5.0);
+
+          bottom.setAlignment(Pos.CENTER);
+
+          firstOne.setAlignment(Pos.CENTER);
+          borderPane4view.setBottom(bottom);
+          borderPane4view.setTop(firstOne);
+
+          Scene sceneAdd = new Scene(borderPane4view, 400, 150);
           tertiaryStage.setScene(sceneAdd);
           tertiaryStage.show();
-          
+
+        }
       }
-    }
 
- });
-  
-  
-  
-  
-  
-  
-  //ADDED THE ALERT BOX IF UNABLE TO REMOVE THE EDGE, NO NAME, SAME USER, NON EXISTENT USER
-    removeFriendship.setOnAction(e -> {
-    friend1.setText(textRFL.getText());
-    friend2.setText(textRFL1.getText());
-    boolean removed = friendNetwork.removeFriends(textRFL.getText(), textRFL1.getText());
-    
-    if(!removed) {
-      //pop-up window for the user
-      BorderPane borderPane4add = new BorderPane();
-      HBox firstRow = new HBox(new Label("Unabel to remove friends."));
-      VBox VerticalBox = new VBox(firstRow);
-         VerticalBox.setSpacing(20.0);
-         VerticalBox.setAlignment(Pos.CENTER);
-         firstRow.setSpacing(5.0);
-         firstRow.setAlignment(Pos.CENTER);
-      borderPane4add.setCenter(VerticalBox);
-      Scene sceneAdd = new Scene(borderPane4add,300,150);
-      tertiaryStage.setScene(sceneAdd);
-      tertiaryStage.show();
-    }
-    else {
-      //pop-up window for the user
-      BorderPane borderPane4add = new BorderPane();
-      HBox firstRow = new HBox(new Label("Removed "+textRFL.getText()+" and "+textRFL1.getText()+" as friends."));
-      HBox secondRow = new HBox(new Label("Hope they two get back together"));
-      
-      VBox VerticalBox = new VBox(firstRow,secondRow);
-         
-         VerticalBox.setSpacing(20.0);
-
-         VerticalBox.setAlignment(Pos.CENTER);
-
-
-         firstRow.setSpacing(5.0);
-
-         firstRow.setAlignment(Pos.CENTER);
-         
-         secondRow.setSpacing(5.0);
-
-         secondRow.setAlignment(Pos.CENTER);
-         
-      borderPane4add.setCenter(VerticalBox);
-      Scene sceneAdd = new Scene(borderPane4add,300,150);
-      tertiaryStage.setScene(sceneAdd);
-      tertiaryStage.show();
-    }
     });
 
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+    // ADDED THE ALERT BOX IF UNABLE TO REMOVE THE EDGE, NO NAME, SAME USER, NON EXISTENT USER
+    removeFriendship.setOnAction(e -> {
+      friend1.setText(textRFL.getText());
+      friend2.setText(textRFL1.getText());
+      boolean removed = friendNetwork.removeFriends(textRFL.getText(), textRFL1.getText());
+
+      if (!removed) {
+        // pop-up window for the user
+        BorderPane borderPane4add = new BorderPane();
+        HBox firstRow = new HBox(new Label("Unabel to remove friends."));
+        VBox VerticalBox = new VBox(firstRow);
+        VerticalBox.setSpacing(20.0);
+        VerticalBox.setAlignment(Pos.CENTER);
+        firstRow.setSpacing(5.0);
+        firstRow.setAlignment(Pos.CENTER);
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+      } else {
+        // pop-up window for the user
+        BorderPane borderPane4add = new BorderPane();
+        HBox firstRow = new HBox(new Label(
+            "Removed " + textRFL.getText() + " and " + textRFL1.getText() + " as friends."));
+        HBox secondRow = new HBox(new Label("Hope they two get back together"));
+
+        VBox VerticalBox = new VBox(firstRow, secondRow);
+
+        VerticalBox.setSpacing(20.0);
+
+        VerticalBox.setAlignment(Pos.CENTER);
+
+
+        firstRow.setSpacing(5.0);
+
+        firstRow.setAlignment(Pos.CENTER);
+
+        secondRow.setSpacing(5.0);
+
+        secondRow.setAlignment(Pos.CENTER);
+
+        borderPane4add.setCenter(VerticalBox);
+        Scene sceneAdd = new Scene(borderPane4add, 300, 150);
+        tertiaryStage.setScene(sceneAdd);
+        tertiaryStage.show();
+      }
+    });
+
+
+
     // Main layout is Border Pane example (top,left,center,right,bottom)
 
     BorderPane borderPane3 = new BorderPane();
@@ -1019,14 +929,13 @@ public class Main extends Application  {
     HBox fifthRow = new HBox(displayConnections, textF6, display);
 
     HBox sixthRow = new HBox(exportFriendsList, textF7, export);
-    
-    HBox seventhRow = new HBox (addFriendsLabel, textAF,textAF1, addFriend);
-    
-    HBox eightRow = new HBox (removeFriendshipLabel, textRFL, textRFL1, removeFriendship);
+
+    HBox seventhRow = new HBox(addFriendsLabel, textAF, textAF1, addFriend);
+
+    HBox eightRow = new HBox(removeFriendshipLabel, textRFL, textRFL1, removeFriendship);
 
     HBox buttons = new HBox(removeAll, displayNetwork);
-    
-    
+
 
 
     buttons.setSpacing(5.0);
@@ -1034,9 +943,9 @@ public class Main extends Application  {
     buttons.setAlignment(Pos.CENTER);
 
 
-      VBox VerticalBox = new VBox(firstRow, secondRow, thirdRow,
-  
-          fourthRow, fifthRow, sixthRow, seventhRow,eightRow, buttons);
+    VBox VerticalBox = new VBox(firstRow, secondRow, thirdRow,
+
+        fourthRow, fifthRow, sixthRow, seventhRow, eightRow, buttons);
 
     VerticalBox.setSpacing(20.0);
 
@@ -1071,11 +980,11 @@ public class Main extends Application  {
     sixthRow.setSpacing(5.0);
 
     sixthRow.setAlignment(Pos.CENTER);
-    
+
     seventhRow.setSpacing(5.0);
 
     seventhRow.setAlignment(Pos.CENTER);
-    
+
     eightRow.setSpacing(5.0);
 
     eightRow.setAlignment(Pos.CENTER);
@@ -1092,42 +1001,42 @@ public class Main extends Application  {
         "-fx-max-width: 100px; " +
 
         "-fx-max-height: 100px; -fx-text-fill: yellow; -fx-font: 17 arial;");
-    
+
     exitButton3.setAlignment(Pos.CENTER);
-    
+
     exitButton3.setOnAction(e -> {
       BorderPane shutDown = new BorderPane();
       String message;
-      if(textF7.getText().equals("enter file name") || textF7.getText().equals("") || friendNetwork.txtFileName.equals(""))
-      {
+      if (textF7.getText().equals("enter file name") || textF7.getText().equals("")
+          || friendNetwork.txtFileName.equals("")) {
         message = "Hope you enjoyed using The Social Network.";
-      }
-      else {
-        message = "Your commands were saved in the file: "+friendNetwork.txtFileName+"\nHope you enjoyed using The Social Network.";
+      } else {
+        message = "Your commands were saved in the file: " + friendNetwork.txtFileName
+            + "\nHope you enjoyed using The Social Network.";
       }
       HBox fRow = new HBox(new Label(message));
       HBox sRow = new HBox(new Label("See you again!"));
-      
-      VBox vBox = new VBox(fRow,sRow);
-        
-        vBox.setSpacing(20.0);
 
-        vBox.setAlignment(Pos.CENTER);
+      VBox vBox = new VBox(fRow, sRow);
+
+      vBox.setSpacing(20.0);
+
+      vBox.setAlignment(Pos.CENTER);
 
 
-        fRow.setSpacing(5.0);
+      fRow.setSpacing(5.0);
 
-        fRow.setAlignment(Pos.CENTER);
-        
-        sRow.setSpacing(5.0);
+      fRow.setAlignment(Pos.CENTER);
 
-        sRow.setAlignment(Pos.CENTER);
-        
-     shutDown.setCenter(vBox);
-     Scene sceneAdd = new Scene(shutDown,400, 200);
-     primaryStage.setScene(sceneAdd);
-     primaryStage.show();
-      
+      sRow.setSpacing(5.0);
+
+      sRow.setAlignment(Pos.CENTER);
+
+      shutDown.setCenter(vBox);
+      Scene sceneAdd = new Scene(shutDown, 400, 200);
+      primaryStage.setScene(sceneAdd);
+      primaryStage.show();
+
     });
 
     lowerPane3.setRight(exitButton3);
@@ -1187,9 +1096,7 @@ public class Main extends Application  {
 
 
     // a "Run text file(s)" button - linked to Scene2
-
     Button textFileButton = new Button("Run text file(s)");
-
     textFileButton.setStyle("-fx-base: #DCDCDC; " +
 
         "-fx-min-width: 200px; " +
@@ -1204,7 +1111,6 @@ public class Main extends Application  {
      */
 
     BorderPane window = new BorderPane(); // Adding a label in the top panel
-
 
     Label scene2display = new Label("THE SOCIAL NETWORK");
     scene2display.setStyle("-fx-text-fill: yellow; -fx-font: 35 arial;");
@@ -1235,7 +1141,7 @@ public class Main extends Application  {
     loadButton.setStyle("-fx-font: 28 arial;");
 
     loadButton.setOnAction(e -> {
-      
+
       primaryStage.setScene(mainScene);
 
     });
@@ -1308,7 +1214,6 @@ public class Main extends Application  {
     /*
      */
     // creating a vertical box
-
     VBox newBox = new VBox(textFileButton, socNetButton);
 
     newBox.setSpacing(50);
@@ -1316,8 +1221,6 @@ public class Main extends Application  {
     newBox.setAlignment(Pos.CENTER);
 
     root.setCenter(newBox);
-
-
 
     // creating the exit button
 
@@ -1336,31 +1239,17 @@ public class Main extends Application  {
         "-fx-max-height: 100px; -fx-text-fill: yellow; -fx-font: 17 arial;");
 
     exitButton.setAlignment(Pos.CENTER);
-
     exitButton.setOnAction(e -> {
       Platform.exit();
       System.exit(0);
     });
-
     lowerPane.setRight(exitButton);
-
-
-
     root.setBottom(lowerPane);
-
-
-
     // sets the scene in the stage
-
     primaryStage.setScene(Scene1);
-
     // shows the stage
     primaryStage.setTitle(APP_TITLE);
-
     primaryStage.show();
-
-
-
   }
 
 
@@ -1372,8 +1261,6 @@ public class Main extends Application  {
    */
 
   public static void main(String[] args) {
-
     launch(args);
-
   }
 }

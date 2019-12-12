@@ -85,6 +85,8 @@ public interface SocialNetworkADT<K, V> {
    * @param toSave - file to save the instructions into (log file)
    */
   public void savetoFile(File toSave);
+  
+  public int removeAllUsers();
 
 
 

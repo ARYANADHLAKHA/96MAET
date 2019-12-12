@@ -15,6 +15,8 @@ public class Graph implements GraphADT<Person> {
   public int numEdges;
 
 
+  
+  
   /*
    * Default no-argument constructor
    */
@@ -23,6 +25,8 @@ public class Graph implements GraphADT<Person> {
     this.numEdges = 0;
   }
 
+  
+  
   /**
    * Add new vertex to the graph.
    *
@@ -33,14 +37,11 @@ public class Graph implements GraphADT<Person> {
    * Exception if the person doesn't exist or any node with the same name exists
    */
   @Override
-  public boolean addNode(Person person) throws Exception {
-    // if the vertex is null, then the method ends without adding or throwing an exception
+  public boolean addNode(Person person){
+    // if the vertex is null
     // checks if the user with duplicate name is added
     if (person == null || getNode(person.getName()) != null) {
-      // throws exception
-      System.out.println("Error in adding the node to the graph");
-      throw new Exception();
-      // return false
+      return false;
     }
     // if the graph does not contain the key associated with a value, or is mapped with null
     // it associates it with the given value
@@ -60,12 +61,10 @@ public class Graph implements GraphADT<Person> {
    * edge is not in the graph
    */
   @Override
-  public boolean addEdge(Person person1, Person person2) throws Exception {
+  public boolean addEdge(Person person1, Person person2){
     // if any of the person is null, or the same name throws exception
-    if (person1 == null || person2 == null || person1.getName() == person2.getName()) {
-      System.out.println("error in adding the edge between the two people");
-      throw new Exception();
-      // return false;
+    if (person1 == null || person2 == null || person1.getName().equals(person2.getName())) {
+        return false;
     }
     // if the vertex 1 does not exist add it
     if (!graph.containsKey(person1)) {
@@ -100,13 +99,12 @@ public class Graph implements GraphADT<Person> {
    * edge from vertex1 to vertex2 is in the graph
    */
   @Override
-  public boolean removeEdge(Person person1, Person person2) throws Exception {
+  public boolean removeEdge(Person person1, Person person2){
     // if either vertex is null, or the edge doesn't exist
     if (person1 == null || person2 == null || !graph.containsKey(person1)
         || !graph.containsKey(person2) || !graph.get(person1).contains(person2)
         || !graph.get(person2).contains(person1)) {
-      System.out.println("Error in removing the edge between two people");
-      throw new Exception();
+       return false;
     }
     // the vertex exists
     if (graph.containsKey(person1) && graph.containsKey(person2)) {
@@ -135,11 +133,10 @@ public class Graph implements GraphADT<Person> {
    * Valid argument conditions: 1. vertex is non-null 2. vertex is not already in the graph
    */
   @Override
-  public boolean removeNode(Person person) throws Exception {
+  public boolean removeNode(Person person) {
     // throws exception if the person is null or node doesn't exist in the graph
     if (person == null || this.getNode(person.getName()) == null) {
-      System.out.println("error in removing the user.");
-      throw new Exception();
+      return false;
     }
     if (graph.containsKey(person)) {
       // stores the list of the dependencies
@@ -161,13 +158,11 @@ public class Graph implements GraphADT<Person> {
    *
    */
   @Override
-  public Set<Person> getNeighbours(Person person) throws Exception {
-    // throws exception if the person is null, or no node with the given name exists
+  public Set<Person> getNeighbours(Person person){
+    // throws exception if the person is null, or no node with the given name doesn't exists
     if (person == null || this.getNode(person.getName()) == null) {
-      System.out.println("Error in getting the neighbors");
-      throw new Exception();
+      return null;
     }
-
     Set<Person> neighboursSet = new HashSet<Person>();
     ArrayList<Person> neighboursList = this.graph.get(person);
     if (neighboursList == null) {
@@ -205,7 +200,6 @@ public class Graph implements GraphADT<Person> {
    */
   @Override
   public Set<Person> getAllNodes() {
-    // returns the set containing all the vertices
     return this.graph.keySet();
   }
 }

@@ -22,4 +22,3 @@ public interface GraphADT<K> {
   public Set<K> getAllNodes();
 }
 
-
