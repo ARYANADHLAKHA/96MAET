@@ -67,7 +67,7 @@ public class Main extends Application {
 
   private static final int WINDOW_WIDTH = 700;
 
-  private static final int WINDOW_HEIGHT = 700;
+  private static final int WINDOW_HEIGHT = 600;
 
   private static final String APP_TITLE = "THE SOCIAL NETWORK";
 
