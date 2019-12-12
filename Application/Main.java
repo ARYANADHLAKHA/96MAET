@@ -1123,7 +1123,15 @@ public class Main extends Application {
     
     exitButton3.setOnAction(e -> {
       BorderPane shutDown = new BorderPane();
-      HBox fRow = new HBox(new Label("Hope you enjoyed using The Social Network."));
+      String message;
+      if(textF7.getText().equals("enter file name") || textF7.getText().equals("") || friendNetwork.txtFileName.equals(""))
+      {
+        message = "Hope you enjoyed using The Social Network.";
+      }
+      else {
+        message = "Your commands were saved in the file: "+friendNetwork.txtFileName+"\nHope you enjoyed using The Social Network.";
+      }
+      HBox fRow = new HBox(new Label(message));
       HBox sRow = new HBox(new Label("See you again!"));
       
       VBox vBox = new VBox(fRow,sRow);
@@ -1142,9 +1150,10 @@ public class Main extends Application {
         sRow.setAlignment(Pos.CENTER);
         
      shutDown.setCenter(vBox);
-     Scene sceneAdd = new Scene(shutDown,300,150);
+     Scene sceneAdd = new Scene(shutDown,400, 200);
      primaryStage.setScene(sceneAdd);
      primaryStage.show();
+      
     });
     lowerPane3.setRight(exitButton3);
     lowerPane3.setCenter(center);
